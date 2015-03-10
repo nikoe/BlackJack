@@ -1,3 +1,3 @@
 # BlackJack
 
-TEST22
+TEST
