@@ -10,12 +10,19 @@ package nikoe.blackjack;
  * @author Niko
  */
 import nikoe.blackjack.logic.cards.BlackJackDeck;
+import nikoe.blackjack.util.PropertyReader;
 
 public class Main {
     
     public static void main(String[] args) {
         
-        BlackJackDeck deck = new BlackJackDeck(1);
+        PropertyReader props = new PropertyReader("game.properties");
+        
+        int decks = Integer.parseInt(props.getProperty("deck.numberOfDecks"));
+        
+        BlackJackDeck deck = new BlackJackDeck(decks);
+        
+        System.out.println(deck.cardsLeft());
         
         
     }
