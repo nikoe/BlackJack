@@ -11,14 +11,18 @@ package nikoe.blackjack.logic.cards;
  */
 public class BlackJackDeck extends Deck {
 
-    private int numberOfDecks;
+    private final int numberOfDecks;
 
+    /**
+     *
+     * @param numberOfDecks Tells how many 52 card decks are in BlackJackDeck
+     */
     public BlackJackDeck(int numberOfDecks) {
         this.numberOfDecks = numberOfDecks;
         this.initDeck();
         this.shuffle();
     }
-
+    
     private void initDeck() {
         for (int i = 1; i <= this.numberOfDecks; i++) {
             for (Rank rank : Rank.values()) {

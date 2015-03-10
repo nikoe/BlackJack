@@ -7,6 +7,9 @@
 /**
  *
  * @author Niko
+ * 
+ * SUIT OF CARDS
+ * 
  */
 
 package nikoe.blackjack.logic.cards;
