@@ -27,12 +27,22 @@ public class PropertyReader {
     public String getProperty(String name) {
         try {
             this.props.load(getClass().getClassLoader().getResourceAsStream("config/"+this.filename));
-        } catch (IOException ex) {
+        } catch (Exception ex) {
             Logger.getLogger(PropertyReader.class.getName()).log(Level.SEVERE, null, ex);
             return null;
         }
         return this.props.getProperty(name);
 
+    }
+    
+    public String getProperty(String name, String def) {
+        try {
+            this.props.load(getClass().getClassLoader().getResourceAsStream("config/"+this.filename));
+        } catch (Exception ex) {
+            Logger.getLogger(PropertyReader.class.getName()).log(Level.SEVERE, null, ex);
+            return def;
+        }
+        return this.props.getProperty(name);
     }
 
 }

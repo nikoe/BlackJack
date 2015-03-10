@@ -18,7 +18,7 @@ public class Main {
         
         PropertyReader props = new PropertyReader("game.properties");
         
-        int decks = Integer.parseInt(props.getProperty("deck.numberOfDecks"));
+        int decks = Integer.parseInt(props.getProperty("deck.numberOfDecks", "3"));
         
         BlackJackDeck deck = new BlackJackDeck(decks);
         
