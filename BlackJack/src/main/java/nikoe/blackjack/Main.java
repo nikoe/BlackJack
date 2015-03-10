@@ -15,9 +15,8 @@ public class Main {
     
     public static void main(String[] args) {
         
-        BlackJackDeck deck = new BlackJackDeck(2);
+        BlackJackDeck deck = new BlackJackDeck(1);
         
-        System.out.println(deck.dealCard().toString());
         
     }
     

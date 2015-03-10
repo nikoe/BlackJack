@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package nikoe.blackjack.logic.cards;
 
 /**
@@ -15,14 +10,15 @@ public class BlackJackDeck extends Deck {
 
     /**
      *
-     * @param numberOfDecks Tells how many 52 card decks is in BlackJackDeck
+     * @param numberOfDecks Determine how many single 52 card decks to
+     * initialize
      */
     public BlackJackDeck(int numberOfDecks) {
         this.numberOfDecks = numberOfDecks;
         this.initDeck();
         this.shuffle();
     }
-    
+
     private void initDeck() {
         for (int i = 1; i <= this.numberOfDecks; i++) {
             for (Rank rank : Rank.values()) {
