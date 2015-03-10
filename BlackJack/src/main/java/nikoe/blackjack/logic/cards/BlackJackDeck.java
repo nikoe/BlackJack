@@ -15,7 +15,7 @@ public class BlackJackDeck extends Deck {
 
     /**
      *
-     * @param numberOfDecks Tells how many 52 card decks are in BlackJackDeck
+     * @param numberOfDecks Tells how many 52 card decks is in BlackJackDeck
      */
     public BlackJackDeck(int numberOfDecks) {
         this.numberOfDecks = numberOfDecks;

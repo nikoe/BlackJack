@@ -17,7 +17,7 @@ public class Main {
         
         BlackJackDeck deck = new BlackJackDeck(2);
         
-        System.out.println(deck);
+        System.out.println(deck.dealCard().toString());
         
     }
     
