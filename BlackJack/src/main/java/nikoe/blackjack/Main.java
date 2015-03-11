@@ -11,7 +11,7 @@ package nikoe.blackjack;
  */
 import java.util.Scanner;
 import nikoe.blackjack.logic.HandValueHolder;
-import nikoe.blackjack.logic.Human;
+import nikoe.blackjack.logic.players.Human;
 import nikoe.blackjack.logic.Seat;
 import nikoe.blackjack.logic.cards.BlackJackDeck;
 import nikoe.blackjack.logic.cards.Card;

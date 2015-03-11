@@ -1,8 +1,10 @@
-package nikoe.blackjack.logic;
+package nikoe.blackjack.logic.players;
 
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
+import nikoe.blackjack.logic.HandValueCalculator;
+import nikoe.blackjack.logic.HandValueHolder;
 import nikoe.blackjack.logic.cards.Card;
 
 /**

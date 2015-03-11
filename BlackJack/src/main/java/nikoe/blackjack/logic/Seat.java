@@ -5,6 +5,8 @@
  */
 package nikoe.blackjack.logic;
 
+import nikoe.blackjack.logic.players.Player;
+
 /**
  *
  * @author Niko
