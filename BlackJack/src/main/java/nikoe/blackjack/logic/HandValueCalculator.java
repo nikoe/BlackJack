@@ -101,7 +101,7 @@ public class HandValueCalculator {
         if (hand.size() != 2) {
             return false;
         }
-
+        
         int value = getCardValue(hand.get(0), true) + getCardValue(hand.get(1), true);
 
         if (value == 21) {
