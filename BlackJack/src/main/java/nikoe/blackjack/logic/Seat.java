@@ -36,4 +36,12 @@ public class Seat {
         return this.seatNumber;
     }
     
+    public boolean hasPlayer() {
+        if(this.player != null) {
+            return true;
+        }else {
+            return false;
+        }
+    }
+    
 }

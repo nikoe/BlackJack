@@ -35,6 +35,10 @@ public abstract class Player {
         return Collections.unmodifiableList(this.hand);
     }
     
+    public int getFinalHandValue() {
+        return handValueCalculator.getFinalHandValue(this.hand);
+    }
+    
     public HandValueHolder getHandValue() {
         return handValueCalculator.getHandValue(hand);
     }

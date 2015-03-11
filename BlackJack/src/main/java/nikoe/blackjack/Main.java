@@ -17,12 +17,14 @@ import nikoe.blackjack.logic.cards.BlackJackDeck;
 import nikoe.blackjack.logic.cards.Card;
 import nikoe.blackjack.logic.cards.Rank;
 import nikoe.blackjack.logic.cards.Suit;
+import nikoe.blackjack.logic.players.Player;
 import nikoe.blackjack.util.PropertyReader;
 
 public class Main {
     
     public static void main(String[] args) {
         
+        /*
         Seat seat1 = new Seat(1);
         seat1.setPlayer(new Human("Niko"));
         
@@ -37,7 +39,9 @@ public class Main {
             
             System.out.println(seat1.getPlayer().getHand());
             System.out.println(seat1.getPlayer().getHandValue().getPossibleHandValues());
+            System.out.println(seat1.getPlayer().getFinalHandValue());
         }
+        */
         
     }
     

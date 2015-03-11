@@ -76,6 +76,27 @@ public class HandValueCalculator {
         return values;
     }
 
+    public int getFinalHandValue(List<Card> hand) {
+        HandValueHolder values = getHandValue(hand);
+
+        if (values.getPossibleHandValues().size() == 1) {
+            return values.getPossibleHandValues().get(0);
+        } else {
+            int value1 = values.getPossibleHandValues().get(0);
+            int value2 = values.getPossibleHandValues().get(1);
+
+            if (value1 == value2) {
+                return value1;
+            }
+
+            if (Math.max(value1, value2) > 21) {
+                return Math.min(value1, value2);
+            } else {
+                return Math.max(value1, value2);
+            }
+        }
+    }
+
     public boolean isBlackJack(List<Card> hand) {
         if (hand.size() != 2) {
             return false;

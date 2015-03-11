@@ -11,8 +11,22 @@ package nikoe.blackjack.logic.players;
  */
 public class Human extends Player {
     
+    private double money;
+    
     public Human(String name) {
         super(name);
+        initializeMoney();
     }
-
+    
+    
+    private void initializeMoney() {
+        //Check somewhere if this player already has some money
+        
+        this.money = 500.0;
+    }
+    
+    public double getMoney() {
+        return this.money;
+    }
+    
 }
