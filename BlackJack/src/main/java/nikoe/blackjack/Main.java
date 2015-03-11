@@ -9,21 +9,35 @@ package nikoe.blackjack;
  *
  * @author Niko
  */
+import java.util.Scanner;
+import nikoe.blackjack.logic.HandValueHolder;
+import nikoe.blackjack.logic.Human;
+import nikoe.blackjack.logic.Seat;
 import nikoe.blackjack.logic.cards.BlackJackDeck;
+import nikoe.blackjack.logic.cards.Card;
+import nikoe.blackjack.logic.cards.Rank;
+import nikoe.blackjack.logic.cards.Suit;
 import nikoe.blackjack.util.PropertyReader;
 
 public class Main {
     
     public static void main(String[] args) {
         
-        PropertyReader props = new PropertyReader("game.properties");
+        Seat seat1 = new Seat(1);
+        seat1.setPlayer(new Human("Niko"));
         
-        int decks = Integer.parseInt(props.getProperty("deck.numberOfDecks", "3"));
+        BlackJackDeck deck = new BlackJackDeck(1);
         
-        BlackJackDeck deck = new BlackJackDeck(decks);
+        Scanner scanner = new Scanner(System.in);
         
-        System.out.println(deck.cardsLeft());
-        
+        while(true) {
+            scanner.nextLine();
+            
+            seat1.getPlayer().addCard(deck.dealCard());
+            
+            System.out.println(seat1.getPlayer().getHand());
+            System.out.println(seat1.getPlayer().getHandValue().getPossibleHandValues());
+        }
         
     }
     
