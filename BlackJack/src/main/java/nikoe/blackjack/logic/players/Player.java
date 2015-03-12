@@ -6,44 +6,45 @@ import java.util.List;
 import nikoe.blackjack.logic.HandValueCalculator;
 import nikoe.blackjack.logic.HandValueHolder;
 import nikoe.blackjack.logic.cards.Card;
+import nikoe.blackjack.logic.cards.Hand;
 
 /**
  *
  * @author Niko
  */
-
 public abstract class Player {
-    
-    private static final HandValueCalculator handValueCalculator = new HandValueCalculator();
-    private List<Card> hand;
+
+    private List<Hand> hands;
     private String name;
-    
+
     public Player(String name) {
-        this.hand = new ArrayList<>();
+        this.hands = new ArrayList<>();
+        this.hands.add(new Hand());
         this.name = name;
     }
-    
-    public void addCard(Card card) {
-        this.hand.add(card);
+
+    public void clearHands() {
+        this.hands.clear();
     }
     
-    public void clearHand() {
-        this.hand.clear();
+    public void addHand(Hand hand) {
+        this.hands.add(hand);
     }
     
-    public List<Card> getHand() {
-        return Collections.unmodifiableList(this.hand);
+    public String getName() {
+        return this.name;
     }
     
-    public int getFinalHandValue() {
-        return handValueCalculator.getFinalHandValue(this.hand);
+    public List<Hand> getHands() {
+        return Collections.unmodifiableList(this.hands);
     }
     
-    public HandValueHolder getHandValue() {
-        return handValueCalculator.getHandValue(hand);
+    public Hand getHand(int index) {
+        if(index > this.hands.size()) {
+            return null;
+        }
+        
+        return this.hands.get(index);
     }
     
-    public boolean isBlackJack() {
-        return handValueCalculator.isBlackJack(this.hand);
-    }
 }
