@@ -15,4 +15,5 @@ Tunnit: 5h
 * Luokkien yhteensopivuus testailua
 
 Tunnit: 6h
+
 Yhteensä: 11h
