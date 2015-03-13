@@ -3,6 +3,7 @@
 * Projekti luotu
 * Ensimmäiset koodit kirjoitettu korttipakan osalta
 * Kansiorakenne
+* Projektikuvaus kirjoitettu
 
 Tunnit: 5h
 
