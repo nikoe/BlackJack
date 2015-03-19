@@ -1,5 +1,7 @@
 package nikoe.blackjack.logic.cards;
 
+import java.util.Objects;
+
 /**
  *
  * @author Niko
@@ -7,7 +9,7 @@ package nikoe.blackjack.logic.cards;
  * Class for one single card
  *
  */
-public class Card {
+public class Card implements Comparable{
 
     /*
      Rank and suit for card
@@ -53,4 +55,39 @@ public class Card {
         return this.rank.name() + " OF " + this.suit.name();
     }
 
+    @Override
+    public int hashCode() {
+        int hash = 3;
+        hash = 43 * hash + Objects.hashCode(this.rank);
+        hash = 43 * hash + Objects.hashCode(this.suit);
+        return hash;
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (obj == null) {
+            return false;
+        }
+        if (getClass() != obj.getClass()) {
+            return false;
+        }
+        final Card other = (Card) obj;
+        if (this.rank != other.rank) {
+            return false;
+        }
+        if (this.suit != other.suit) {
+            return false;
+        }
+        return true;
+    }
+
+    @Override
+    public int compareTo(Object o) {
+        Card com = (Card) o;
+        if(this.rank != com.getRank() && this.getSuit() != com.getSuit()) {
+            return 1;
+        }else {
+            return 0;
+        }
+    }
 }

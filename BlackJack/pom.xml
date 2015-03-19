@@ -37,6 +37,14 @@
                 <groupId>org.pitest</groupId>
                 <artifactId>pitest-maven</artifactId>
                 <version>1.1.4</version>
+                <configuration>
+                    <targetClasses>
+                        <param>nikoe.blackjack.logic.cards*</param>
+                    </targetClasses>
+                    <targetTests>
+                        <param>nikoe.blackjack.logic.cards*</param>
+                    </targetTests>
+                </configuration>
             </plugin>
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
