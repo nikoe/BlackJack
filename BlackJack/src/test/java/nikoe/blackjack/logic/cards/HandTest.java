@@ -77,6 +77,20 @@ public class HandTest {
     }
     
     @Test
+    public void testThreeAces() {
+        Hand h = new Hand();
+        h.addCard(new Card(Rank.ACE, Suit.SPADES));
+        h.addCard(new Card(Rank.ACE, Suit.DIAMONDS));
+        h.addCard(new Card(Rank.ACE, Suit.HEARTS));
+        
+        HandValueHolder hvh = h.getHandValue();
+        
+        assertEquals(2, hvh.getPossibleHandValues().size());
+        assertEquals(3, (int)hvh.getPossibleHandValues().get(0));
+        assertEquals(13, (int)hvh.getPossibleHandValues().get(1));
+    }
+    
+    @Test
     public void testAddCard() {
         Hand h = new Hand();
         h.addCard(new Card(Rank.TEN, Suit.DIAMONDS));
