@@ -26,7 +26,7 @@ public class PropertyReader {
 
     public String getProperty(String name) {
         try {
-            this.props.load(getClass().getClassLoader().getResourceAsStream("config/"+this.filename));
+            this.props.load(getClass().getResourceAsStream("/nikoe/blackjack/config/"+this.filename));
         } catch (Exception ex) {
             Logger.getLogger(PropertyReader.class.getName()).log(Level.SEVERE, null, ex);
             return null;
@@ -37,7 +37,7 @@ public class PropertyReader {
     
     public String getProperty(String name, String def) {
         try {
-            this.props.load(getClass().getClassLoader().getResourceAsStream("config/"+this.filename));
+            this.props.load(getClass().getResourceAsStream("/nikoe/blackjack/config/"+this.filename));
         } catch (Exception ex) {
             Logger.getLogger(PropertyReader.class.getName()).log(Level.SEVERE, null, ex);
             return def;
