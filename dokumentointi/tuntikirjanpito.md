@@ -33,4 +33,7 @@ Tunnit: 1,5h
 
 * PropertyReader-luokan säätöä, mutta tuloksetta (pitäisi saada tehtyä niin, että Propertyjä ei tallennettaisi käännettyy .jar:iin vaan niitä voisi muokata ja lukea "ulkopuolelta")
 
-Yhteensä: 15,5h
+Tunnit: 3h
+
+
+Yhteensä: 18,5h
