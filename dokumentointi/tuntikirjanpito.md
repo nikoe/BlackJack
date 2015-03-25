@@ -17,4 +17,16 @@ Tunnit: 5h
 
 Tunnit: 6h
 
-Yhteensä: 11h
+#19.3.2015#
+
+* Yksikkötestien kirjoitusta
+
+Tunnit: 3h
+
+#20.3.2015#
+
+* Luokkakaavion piirtämistä
+
+Tunnit: 1,5h
+
+Yhteensä: 15,5h
