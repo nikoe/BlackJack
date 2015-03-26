@@ -16,7 +16,6 @@ public class BlackJackDeck extends Deck {
     public BlackJackDeck(int numberOfDecks) {
         this.numberOfDecks = numberOfDecks;
         this.initDeck();
-        this.shuffle();
     }
 
     private void initDeck() {
@@ -28,6 +27,7 @@ public class BlackJackDeck extends Deck {
                 }
             }
         }
+        this.shuffle();
     }
 
 }
