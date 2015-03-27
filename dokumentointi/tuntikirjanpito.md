@@ -35,5 +35,12 @@ Tunnit: 1,5h
 
 Tunnit: 3h
 
+#28.3.2015#
 
-Yhteensä: 18,5h
+* PropertyReader-luokka saatu kuntoon.
+* Alotettu ajatuksen tasolla miettimään BlackJackGameManager-luokkaa
+* Säädetty hieman Hand-luokkaa
+
+Tunnit: 2,5h
+
+Yhteensä: 21h
