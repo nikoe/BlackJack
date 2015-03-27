@@ -15,15 +15,25 @@ public class Hand {
     private List<Card> cards;
     private boolean splitted;
     private boolean doubled;
+    private boolean isReady;
     
     public Hand() {
         this.cards = new ArrayList<>();
         this.doubled = false;
         this.splitted = false;
+        this.isReady = false;
     }
     
     public void clear() {
         this.cards.clear();
+    }
+    
+    public boolean getIsReady() {
+        return this.isReady;
+    }
+    
+    public void setReady() {
+        this.isReady = true;
     }
     
     public boolean isSplitted() {
@@ -71,5 +81,4 @@ public class Hand {
         this.setDoubled(true);
         //TODO
     }
-    
 }

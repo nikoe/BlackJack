@@ -11,6 +11,7 @@ package nikoe.blackjack;
  */
 import java.util.List;
 import java.util.Scanner;
+import nikoe.blackjack.logic.BlackJackGameManager;
 import nikoe.blackjack.logic.HandValueHolder;
 import nikoe.blackjack.logic.players.Human;
 import nikoe.blackjack.logic.Seat;
@@ -25,14 +26,13 @@ import nikoe.blackjack.util.PropertyReader;
 
 public class Main {
 
-    static PropertyReader props = new PropertyReader("game.properties");
-    static BlackJackDeck deck = new BlackJackDeck(Integer.parseInt(props.getProperty("deck.numberOfDecks", "6")));
-    static Scanner scanner = new Scanner(System.in);
-    static Seat[] seats = new Seat[Integer.parseInt(props.getProperty("table.numberOfSeats", "6"))];
-    static Player dealer = new Dealer("Dealer");
-
+    private static BlackJackGameManager game;
     public static void main(String[] args) {
+        game = new BlackJackGameManager();
         
+        game.addPlayerToSeat("Jaska", 1);
+        game.dealCardToSeat(1);
+        game.dealCardToSeat(2);
         
     }
 
