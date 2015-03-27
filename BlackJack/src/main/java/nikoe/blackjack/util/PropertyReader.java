@@ -5,6 +5,8 @@
  */
 package nikoe.blackjack.util;
 
+import java.io.File;
+import java.io.FileInputStream;
 import java.io.IOException;
 import java.util.Properties;
 import java.util.logging.Level;
@@ -24,25 +26,31 @@ public class PropertyReader {
         this.filename = filename;
     }
 
-    public String getProperty(String name) {
-        try {
-            this.props.load(getClass().getResourceAsStream("/nikoe/blackjack/config/"+this.filename));
-        } catch (Exception ex) {
-            Logger.getLogger(PropertyReader.class.getName()).log(Level.SEVERE, null, ex);
-            return null;
-        }
-        return this.props.getProperty(name);
-
-    }
-    
     public String getProperty(String name, String def) {
         try {
-            this.props.load(getClass().getResourceAsStream("/nikoe/blackjack/config/"+this.filename));
+            File jarPath=new File(this.getClass().getProtectionDomain().getCodeSource().getLocation().getPath());
+            String propertiesPath=jarPath.getParentFile().getAbsolutePath();
+            propertiesPath = propertiesPath.replace("%20", " ");
+            File f = new File(propertiesPath+"/config/"+this.filename);
+            if(f.exists()) {
+                this.props.load(new FileInputStream(propertiesPath+"/config/"+this.filename));
+            }else {
+                this.props.load(getClass().getClassLoader().getResourceAsStream("config/"+this.filename));
+            }
         } catch (Exception ex) {
             Logger.getLogger(PropertyReader.class.getName()).log(Level.SEVERE, null, ex);
             return def;
         }
-        return this.props.getProperty(name);
+        
+        String value = this.props.getProperty(name);
+        if(value == null) {
+            return def;
+        }
+        if(value.length() == 0) {
+            return def;
+        }
+        
+        return value;
     }
 
 }

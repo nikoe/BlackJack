@@ -15,12 +15,12 @@ public abstract class Deck {
     /**
      * Cards that are available for dealing
      */
-    protected Stack<Card> availableCards = new Stack<Card>();
+    private Stack<Card> availableCards = new Stack<>();
 
     /**
      * Cards that are already dealt from the deck
      */
-    protected List<Card> dealtCards = new ArrayList<Card>();
+    private List<Card> dealtCards = new ArrayList<>();
 
     public Deck() {
     }
@@ -66,13 +66,20 @@ public abstract class Deck {
         this.dealtCards.clear();
         this.shuffle();
     }
-
+    
+    public void addCard(Card card) {
+        this.availableCards.add(card);
+    }
+    
+    public List<Card> getAvailableCards() {
+        return Collections.unmodifiableList(this.availableCards);
+    }
     /**
      *
      * @return Returns list of dealt cards
      */
     public List<Card> getDealtCards() {
-        return this.dealtCards;
+        return Collections.unmodifiableList(this.dealtCards);
     }
 
     /**

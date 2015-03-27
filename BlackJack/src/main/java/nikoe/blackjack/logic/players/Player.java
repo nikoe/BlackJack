@@ -19,18 +19,17 @@ public abstract class Player {
 
     public Player(String name) {
         this.hands = new ArrayList<>();
-        this.hands.add(new Hand());
         this.name = name;
     }
 
     public void clearHands() {
         this.hands.clear();
     }
-    
+
     public void addHand(Hand hand) {
         this.hands.add(hand);
     }
-    
+
     public String getName() {
         return this.name;
     }
@@ -38,13 +37,5 @@ public abstract class Player {
     public List<Hand> getHands() {
         return Collections.unmodifiableList(this.hands);
     }
-    
-    public Hand getHand(int index) {
-        if(index > this.hands.size()) {
-            return null;
-        }
-        
-        return this.hands.get(index);
-    }
-    
+
 }

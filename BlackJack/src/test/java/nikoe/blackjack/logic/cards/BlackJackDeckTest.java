@@ -84,7 +84,7 @@ public class BlackJackDeckTest {
         deck.reset();
         while(deck.cardsLeft() > 0) {
             Card c = deck.dealCard();
-            assertEquals(false, deck.availableCards.contains(c));
+            assertEquals(false, deck.getAvailableCards().contains(c));
         }
     }
 }

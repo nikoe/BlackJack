@@ -23,7 +23,7 @@ public class BlackJackDeck extends Deck {
             for (Rank rank : Rank.values()) {
                 for (Suit suit : Suit.values()) {
                     Card card = new Card(rank, suit);
-                    this.availableCards.add(card);
+                    this.addCard(card);
                 }
             }
         }
