@@ -11,6 +11,7 @@ package nikoe.blackjack;
  */
 import java.util.List;
 import java.util.Scanner;
+import javax.swing.SwingUtilities;
 import nikoe.blackjack.logic.BlackJackGameManager;
 import nikoe.blackjack.logic.HandValueHolder;
 import nikoe.blackjack.logic.players.Human;
@@ -22,18 +23,15 @@ import nikoe.blackjack.logic.cards.Rank;
 import nikoe.blackjack.logic.cards.Suit;
 import nikoe.blackjack.logic.players.Dealer;
 import nikoe.blackjack.logic.players.Player;
+import nikoe.blackjack.ui.BlackJackUI;
 import nikoe.blackjack.util.PropertyReader;
 
 public class Main {
 
     private static BlackJackGameManager game;
     public static void main(String[] args) {
-        game = new BlackJackGameManager();
-        
-        game.addPlayerToSeat("Jaska", 1);
-        game.dealCardToSeat(1);
-        game.dealCardToSeat(2);
-        
+        BlackJackUI ui = new BlackJackUI();
+        SwingUtilities.invokeLater(ui);
     }
 
 }
