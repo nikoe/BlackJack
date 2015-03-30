@@ -43,4 +43,17 @@ Tunnit: 3h
 
 Tunnit: 2,5h
 
-Yhteensä: 21h
+#29.3.2015#
+
+* Käyttöliittymän kuvien piirtelyä
+* Käyttöliittymän koodausta
+
+Tunnit: 6h
+
+#30.3.2015#
+
+* Käyttöliittymän koodausta
+
+Tunnit: 3h
+
+Yhteensä: 30h
