@@ -1,5 +1,6 @@
 package nikoe.blackjack.logic.cards;
 
+import java.awt.Image;
 import java.util.Objects;
 
 /**
@@ -16,15 +17,17 @@ public class Card implements Comparable{
      */
     private final Rank rank;
     private final Suit suit;
+    private final Image img;
 
     /**
      *
      * @param rank
      * @param suit
      */
-    public Card(Rank rank, Suit suit) {
+    public Card(Rank rank, Suit suit, Image img) {
         this.rank = rank;
         this.suit = suit;
+        this.img = img;
     }
 
     /**
@@ -89,5 +92,9 @@ public class Card implements Comparable{
         }else {
             return 0;
         }
+    }
+    
+    public Image getImage() {
+        return this.img;
     }
 }

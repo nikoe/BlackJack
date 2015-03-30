@@ -28,9 +28,9 @@ import nikoe.blackjack.util.PropertyReader;
 
 public class Main {
 
-    private static BlackJackGameManager game;
     public static void main(String[] args) {
-        BlackJackUI ui = new BlackJackUI();
+        BlackJackGameManager manager = new BlackJackGameManager();
+        BlackJackUI ui = new BlackJackUI(manager);
         SwingUtilities.invokeLater(ui);
     }
 

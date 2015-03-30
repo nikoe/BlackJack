@@ -9,5 +9,5 @@ package nikoe.blackjack.logic.cards;
 
 public enum Suit {
 
-    SPADES, DIAMONDS, CLUBS, HEARTS
+    CLUBS, SPADES, HEARTS, DIAMONDS
 }

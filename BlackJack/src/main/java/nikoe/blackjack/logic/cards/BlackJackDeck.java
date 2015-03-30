@@ -1,5 +1,7 @@
 package nikoe.blackjack.logic.cards;
 
+import nikoe.blackjack.util.CardImageLoader;
+
 /**
  *
  * @author Niko
@@ -19,10 +21,11 @@ public class BlackJackDeck extends Deck {
     }
 
     private void initDeck() {
+        CardImageLoader loader = new CardImageLoader();
         for (int i = 1; i <= this.numberOfDecks; i++) {
             for (Rank rank : Rank.values()) {
                 for (Suit suit : Suit.values()) {
-                    Card card = new Card(rank, suit);
+                    Card card = new Card(rank, suit, loader.getCardImage(rank, suit));
                     this.addCard(card);
                 }
             }

@@ -40,25 +40,25 @@ public class HandTest {
     @Test
     public void isBlackJack() {
         Hand h = new Hand();
-        h.addCard(new Card(Rank.ACE, Suit.SPADES));
-        h.addCard(new Card(Rank.JACK, Suit.DIAMONDS));
+        h.addCard(new Card(Rank.ACE, Suit.SPADES, null));
+        h.addCard(new Card(Rank.JACK, Suit.DIAMONDS, null));
         assertEquals(true, h.isBlackJack());
     }
     
     @Test
     public void isNotBlackJack() {
         Hand h = new Hand();
-        h.addCard(new Card(Rank.FIVE, Suit.SPADES));
-        h.addCard(new Card(Rank.JACK, Suit.DIAMONDS));
+        h.addCard(new Card(Rank.FIVE, Suit.SPADES, null));
+        h.addCard(new Card(Rank.JACK, Suit.DIAMONDS, null));
         assertEquals(false, h.isBlackJack());
     }
     
     @Test
     public void isTwentyOne() {
         Hand h = new Hand();
-        h.addCard(new Card(Rank.EIGHT, Suit.CLUBS));
-        h.addCard(new Card(Rank.THREE, Suit.HEARTS));
-        h.addCard(new Card(Rank.KING, Suit.CLUBS));
+        h.addCard(new Card(Rank.EIGHT, Suit.CLUBS, null));
+        h.addCard(new Card(Rank.THREE, Suit.HEARTS, null));
+        h.addCard(new Card(Rank.KING, Suit.CLUBS, null));
         
         assertEquals(21, h.getFinalHandValue());
     }
@@ -66,8 +66,8 @@ public class HandTest {
     @Test
     public void testAce() {
         Hand h = new Hand();
-        h.addCard(new Card(Rank.ACE, Suit.SPADES));
-        h.addCard(new Card(Rank.FIVE, Suit.DIAMONDS));
+        h.addCard(new Card(Rank.ACE, Suit.SPADES, null));
+        h.addCard(new Card(Rank.FIVE, Suit.DIAMONDS, null));
         
         HandValueHolder hvh = h.getHandValue();
         
@@ -79,9 +79,9 @@ public class HandTest {
     @Test
     public void testThreeAces() {
         Hand h = new Hand();
-        h.addCard(new Card(Rank.ACE, Suit.SPADES));
-        h.addCard(new Card(Rank.ACE, Suit.DIAMONDS));
-        h.addCard(new Card(Rank.ACE, Suit.HEARTS));
+        h.addCard(new Card(Rank.ACE, Suit.SPADES, null));
+        h.addCard(new Card(Rank.ACE, Suit.DIAMONDS, null));
+        h.addCard(new Card(Rank.ACE, Suit.HEARTS, null));
         
         HandValueHolder hvh = h.getHandValue();
         
@@ -93,14 +93,14 @@ public class HandTest {
     @Test
     public void testAddCard() {
         Hand h = new Hand();
-        h.addCard(new Card(Rank.TEN, Suit.DIAMONDS));
+        h.addCard(new Card(Rank.TEN, Suit.DIAMONDS, null));
         assertEquals(1, h.getCards().size());
     }
     
     @Test
     public void testClear() {
         Hand h = new Hand();
-        h.addCard(new Card(Rank.TEN, Suit.DIAMONDS));
+        h.addCard(new Card(Rank.TEN, Suit.DIAMONDS, null));
         h.clear();
         assertEquals(0, h.getCards().size());
     }

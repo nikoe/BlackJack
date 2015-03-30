@@ -29,4 +29,8 @@ public class Human extends Player {
         return this.money;
     }
     
+    public void setMoney(double money) {
+        this.money = money;
+    }
+    
 }
