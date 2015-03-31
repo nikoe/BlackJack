@@ -9,6 +9,9 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 import java.util.Observable;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javax.swing.Timer;
 import nikoe.blackjack.logic.cards.BlackJackDeck;
 import nikoe.blackjack.logic.cards.Hand;
 import nikoe.blackjack.logic.players.Dealer;
@@ -24,6 +27,7 @@ import nikoe.blackjack.util.PropertyReader;
 public class BlackJackGameManager {
 
     private List<Seat> seats;
+    private Seat dealerSeat;
     private Dealer dealer;
     private PropertyReader props;
     private BlackJackDeck deck;
@@ -51,6 +55,8 @@ public class BlackJackGameManager {
         for (int i = 1; i <= maxSeatAmount; i++) {
             this.seats.add(new Seat(i));
         }
+        this.dealerSeat = new Seat(0);
+        this.dealerSeat.setPlayer(this.dealer);
     }
 
     private void initDeck() {
@@ -85,6 +91,10 @@ public class BlackJackGameManager {
             return null;
         }
         return this.seats.get(seatNumber-1);
+    }
+    
+    public Seat getDealerSeat() {
+        return this.dealerSeat;
     }
     
     public boolean seatsHasPlayers() {
@@ -145,6 +155,10 @@ public class BlackJackGameManager {
                     h.addCard(this.deck.dealCard());
                 }
             }
+            //Only first card to dealer
+            if(i == 0) {
+                this.dealer.getHands().get(0).addCard(this.deck.dealCard());
+            }
         }
     }
     
@@ -169,9 +183,30 @@ public class BlackJackGameManager {
         }else {
             this.state = GameState.DEALTODEALER;
             repaintAll();
-            //DEAL TO DEALER
+            dealToDealer();
             System.out.println("DEAL TO DEALER");
         }
+    }
+    
+    private void dealToDealer() {
+
+            Hand h = this.dealer.getHands().get(0);
+            while(h.getFinalHandValue() < 17) {
+                h.addCard(this.deck.dealCard());
+            }
+            repaintAll();
+            //endRound();
+    }
+    
+    private void endRound() {
+            for(Seat s : this.seats) {
+                if(s.hasPlayer()) {
+                    s.getPlayer().clearHands();
+                }
+            }
+            this.dealer.clearHands();
+            this.state = GameState.IDLE;
+            repaintAll();
     }
     
     private boolean isPlayerLeftBehind() {

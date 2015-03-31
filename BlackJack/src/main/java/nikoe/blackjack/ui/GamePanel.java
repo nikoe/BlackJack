@@ -92,10 +92,12 @@ public class GamePanel extends JPanel {
             addHandPanel(this.manager.getSeat(3), 50, 230);
         } else if (seatCount == 4) {
             addHandPanel(this.manager.getSeat(1), 840, 230);
-            addHandPanel(this.manager.getSeat(2), 600, 300);
-            addHandPanel(this.manager.getSeat(3), 310, 300);
+            addHandPanel(this.manager.getSeat(2), 600, 320);
+            addHandPanel(this.manager.getSeat(3), 310, 320);
             addHandPanel(this.manager.getSeat(4), 50, 230);
         }
+        
+        addHandPanel(this.manager.getDealerSeat(), 470, 15 );
     }
     
     private void addHandPanel(Seat seat, int x, int y) {
