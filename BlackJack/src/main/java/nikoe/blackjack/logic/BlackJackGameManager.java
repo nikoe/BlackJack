@@ -86,6 +86,17 @@ public class BlackJackGameManager {
         }
         return this.seats.get(seatNumber-1);
     }
+    
+    public boolean seatsHasPlayers() {
+        boolean b = false;
+        for(Seat s : this.getSeats()) {
+            if(s.hasPlayer()) {
+                b = true;
+                break;
+            }
+        }
+        return b;
+    }
 
     public List<Seat> getSeats() {
         return Collections.unmodifiableList(seats);
@@ -145,6 +156,34 @@ public class BlackJackGameManager {
         }
         
         repaintAll();
+    }
+    
+    public void activeHandStand() {
+        if(isPlayerLeftBehind()) {
+            for(int i = this.seatPlaying+1; i <= this.seats.size(); i++) {
+                if(this.getSeat(i).hasPlayer()) {
+                    this.seatPlaying = i;
+                    break;
+                }
+            }
+        }else {
+            this.state = GameState.DEALTODEALER;
+            repaintAll();
+            //DEAL TO DEALER
+            System.out.println("DEAL TO DEALER");
+        }
+    }
+    
+    private boolean isPlayerLeftBehind() {
+        boolean b = false;
+        if(this.seatPlaying == this.seats.size()) return false;
+        for(int i = this.seatPlaying+1; i <= this.seats.size(); i++) {
+            if(this.getSeat(i).hasPlayer()) {
+                b = true;
+                break;
+            }
+        }
+        return b;
     }
     
     public GameState getGameState() {

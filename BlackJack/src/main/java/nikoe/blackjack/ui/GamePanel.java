@@ -60,8 +60,8 @@ public class GamePanel extends JPanel {
         } else if (seatCount == 4) {
             addSeatPanel(this.manager.getSeat(1), 800, 430);
             addSeatPanel(this.manager.getSeat(2), 560, 500);
-            addSeatPanel(this.manager.getSeat(2), 270, 500);
-            addSeatPanel(this.manager.getSeat(3), 10, 430);
+            addSeatPanel(this.manager.getSeat(3), 270, 500);
+            addSeatPanel(this.manager.getSeat(4), 10, 430);
         }
     }
 
@@ -78,9 +78,35 @@ public class GamePanel extends JPanel {
 
         return image;
     }
+    
+    private void addHandPanels() {
+        int seatCount = this.manager.getSeats().size();
+        if (seatCount == 1) {
+            addHandPanel(this.manager.getSeat(1), 450, 335);
+        } else if (seatCount == 2) {
+            addHandPanel(this.manager.getSeat(1), 700, 295);
+            addHandPanel(this.manager.getSeat(2), 190, 300);
+        } else if (seatCount == 3) {
+            addHandPanel(this.manager.getSeat(1), 810, 260);
+            addHandPanel(this.manager.getSeat(2), 450, 345);
+            addHandPanel(this.manager.getSeat(3), 50, 230);
+        } else if (seatCount == 4) {
+            addHandPanel(this.manager.getSeat(1), 840, 230);
+            addHandPanel(this.manager.getSeat(2), 600, 300);
+            addHandPanel(this.manager.getSeat(3), 310, 300);
+            addHandPanel(this.manager.getSeat(4), 50, 230);
+        }
+    }
+    
+    private void addHandPanel(Seat seat, int x, int y) {
+        HandPanel h = new HandPanel(seat);
+        h.setBounds(x, y, 340, 400);
+        add(h);
+        this.handPanels.add(h);
+    }
 
     private void addSeatPanel(Seat seat, int x, int y) {
-        SeatPanel panel = new SeatPanel(seat);
+        SeatPanel panel = new SeatPanel(seat, this.manager);
         panel.setBounds(x, y, (int) panel.getPreferredSize().getWidth() - 25, (int) panel.getPreferredSize().getHeight() - 25);
         add(panel);
         this.seatPanels.add(panel);
@@ -88,17 +114,9 @@ public class GamePanel extends JPanel {
 
     private void addMenuPanel() {
         MenuPanel menu = new MenuPanel(this.manager);
-        menu.setBounds(0, 685, 1024, 55);
+        menu.setBounds(0, 695, 1024, 45);
         add(menu);
         this.menu = menu;
-    }
-    
-    private void addHandPanels() {
-        HandPanel h = new HandPanel(this.manager.getSeat(1));
-        h.setBounds(300, 300, 340, 100);
-        add(h);
-        this.handPanels.add(h);
-        
     }
     
     public void repaintAll() {

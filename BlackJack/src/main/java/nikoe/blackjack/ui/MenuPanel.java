@@ -36,7 +36,7 @@ public class MenuPanel extends JPanel {
     public void paintComponent(Graphics g) {
 
     }
-    
+
     @Override
     public void repaint() {
         setButtonVisibility();
@@ -60,10 +60,15 @@ public class MenuPanel extends JPanel {
                 this.standButton.setVisible(true);
                 this.startRound.setVisible(false);
             }
+            if (this.manager.getGameState() == GameState.DEALTODEALER) {
+                this.hitButton.setVisible(false);
+                this.standButton.setVisible(false);
+                this.startRound.setVisible(false);
+            }
             if (this.manager.getGameState() == GameState.ENDROUND) {
                 this.hitButton.setVisible(false);
                 this.standButton.setVisible(false);
-                this.startRound.setVisible(true);
+                this.startRound.setVisible(false);
             }
         }
     }
@@ -78,6 +83,7 @@ public class MenuPanel extends JPanel {
         add(hitButton);
         standButton = new JButton("Stand");
         standButton.setVisible(false);
+        standButton.addActionListener(new StandButtonListener());
         add(standButton);
     }
 
@@ -85,18 +91,32 @@ public class MenuPanel extends JPanel {
 
         @Override
         public void actionPerformed(ActionEvent e) {
-            manager.startNewRound();
+            if (manager.seatsHasPlayers() && manager.getGameState() == GameState.IDLE) {
+                manager.startNewRound();
+            }
         }
 
     }
-    
+
     class HitButtonListener implements ActionListener {
 
         @Override
         public void actionPerformed(ActionEvent e) {
-            manager.hitCard();
+            if (manager.getGameState() == GameState.ROUNDACTIVE) {
+                manager.hitCard();
+            }
         }
-        
+
     }
 
+    class StandButtonListener implements ActionListener {
+
+        @Override
+        public void actionPerformed(ActionEvent e) {
+            if (manager.getGameState() == GameState.ROUNDACTIVE) {
+                manager.activeHandStand();
+            }
+        }
+
+    }
 }

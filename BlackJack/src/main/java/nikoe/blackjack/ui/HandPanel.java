@@ -5,9 +5,11 @@
  */
 package nikoe.blackjack.ui;
 
+import java.awt.Color;
 import java.awt.Graphics;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
+import nikoe.blackjack.logic.HandValueHolder;
 import nikoe.blackjack.logic.Seat;
 import nikoe.blackjack.logic.cards.Card;
 import nikoe.blackjack.logic.cards.Hand;
@@ -16,41 +18,43 @@ import nikoe.blackjack.logic.cards.Hand;
  *
  * @author Niko
  */
-public class HandPanel extends JPanel{
-    
+public class HandPanel extends JPanel {
+
     private Seat seat;
-    private JLabel handValue;
-    
+
+
     public HandPanel(Seat seat) {
+        setLayout(null);
         this.seat = seat;
-        handValue = new JLabel();
-        handValue.setBounds(50, 50, 10, 10);
-        add(handValue);
+
     }
-    
+
+
+
     @Override
     public void paintComponent(Graphics g) {
-        if(this.seat.hasPlayer()) {
-            Hand h = this.seat.getPlayer().getHands().get(0);
+        if (this.seat.hasPlayer()) {
             int x = 0, y = 0;
-            for(Card c : h.getCards()) {
-                g.drawImage(c.getImage(), x, y, this);
-                x += 25;
+            for (Hand h : this.seat.getPlayer().getHands()) {
+                for (Card c : h.getCards()) {
+                    g.drawImage(c.getImage(), x, y, this);
+                    x += 25;
+                }
+                x = 0;
+                y -= 25;
             }
         }
     }
     
-    /*
-    @Override
-    public void repaint() {
-        super.repaint();
-        if(this.seat != null) {
-            if(this.seat.hasPlayer()) {
-                Hand h = this.seat.getPlayer().getHands().get(0);
-                handValue.setText(""+h.getFinalHandValue());
-            }
+    private String getHandValueString(Hand h) {
+        String value = "";
+        HandValueHolder hvh = h.getHandValue();
+        if (hvh.getPossibleHandValues().size() == 1) {
+            value = "" + hvh.getPossibleHandValues().get(0);
+        } else if (hvh.getPossibleHandValues().size() == 2) {
+            value = "" + hvh.getPossibleHandValues().get(0) + "/" + hvh.getPossibleHandValues().get(1);
         }
+
+        return value;
     }
-    */
-    
 }

@@ -17,6 +17,8 @@ import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.SwingConstants;
+import nikoe.blackjack.logic.BlackJackGameManager;
+import nikoe.blackjack.logic.GameState;
 import nikoe.blackjack.logic.Seat;
 import nikoe.blackjack.logic.players.Human;
 
@@ -29,9 +31,11 @@ public class SeatPanel extends JComponent {
     private Seat seat;
     private JLabel playerName;
     private JLabel playerMoney;
-
-    public SeatPanel(Seat seat) {
+    private BlackJackGameManager manager;
+    
+    public SeatPanel(Seat seat, BlackJackGameManager manager) {
         this.seat = seat;
+        this.manager = manager;
         addLabels();
         addMouseListener(listener);
     }
@@ -64,7 +68,7 @@ public class SeatPanel extends JComponent {
             playerName.setText(h.getName());
 
         }else {
-           playerName.setText("SIT"); 
+           playerName.setText("SIT DOWN"); 
            playerMoney.setText("");
         }
     }
@@ -72,21 +76,23 @@ public class SeatPanel extends JComponent {
     private MouseListener listener = new MouseAdapter() {
         @Override
         public void mouseClicked(MouseEvent e) {
-            if(e.getButton() == 1) {
-                if(!seat.hasPlayer()) {
-                    String name = JOptionPane.showInputDialog("Type name");
-                    if(name != null) {
-                        if(name.length() > 0) {
-                            Human h = new Human(name);
-                            seat.setPlayer(h);
-                            repaint();
+            if(manager.getGameState() == GameState.IDLE) {
+                if(e.getButton() == 1) {
+                    if(!seat.hasPlayer()) {
+                        String name = JOptionPane.showInputDialog("Type name");
+                        if(name != null) {
+                            if(name.length() > 0) {
+                                Human h = new Human(name);
+                                seat.setPlayer(h);
+                                repaint();
+                            }
                         }
                     }
-                }
-            }else if(e.getButton() == 3) {
-                if(seat.hasPlayer()) {
-                    seat.release();
-                    repaint();
+                }else if(e.getButton() == 3) {
+                    if(seat.hasPlayer()) {
+                        seat.release();
+                        repaint();
+                    }
                 }
             }
         }

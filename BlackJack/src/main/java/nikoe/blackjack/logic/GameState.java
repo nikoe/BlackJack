@@ -10,5 +10,5 @@ package nikoe.blackjack.logic;
  * @author Niko
  */
 public enum GameState {
-    IDLE, PLACEBETS, ROUNDACTIVE, ENDROUND
+    IDLE, PLACEBETS, ROUNDACTIVE, DEALTODEALER, ENDROUND
 }
