@@ -187,6 +187,6 @@ public class BlackJackGameManager {
     }
     
     public GameState getGameState() {
-        return this.state;
+        return this.state; 
     }
 }
