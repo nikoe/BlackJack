@@ -87,10 +87,14 @@ public class Card implements Comparable{
     @Override
     public int compareTo(Object o) {
         Card com = (Card) o;
-        if(this.rank != com.getRank() && this.getSuit() != com.getSuit()) {
+        if(this.getRank() != com.getRank()) {
             return 1;
         }else {
-            return 0;
+            if(this.getSuit() != com.getSuit()) {
+                return 1;
+            }else {
+                return 0;
+            }
         }
     }
     
