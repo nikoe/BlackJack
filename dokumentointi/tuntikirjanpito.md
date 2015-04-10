@@ -56,4 +56,10 @@ Tunnit: 6h
 
 Tunnit: 3h
 
-Yhteensä: 30h
+#9.4.2015#
+
+* Testien kirjoitusta
+
+Tunnit: 3h
+
+Yhteensä: 33h
