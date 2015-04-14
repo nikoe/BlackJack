@@ -16,12 +16,14 @@ public class Hand {
     private boolean splitted;
     private boolean doubled;
     private boolean isReady;
+    private boolean isBusted;
     
     public Hand() {
         this.cards = new ArrayList<>();
         this.doubled = false;
         this.splitted = false;
         this.isReady = false;
+        this.isBusted = false;
     }
     
     public void clear() {
@@ -58,6 +60,11 @@ public class Hand {
     
     public void addCard(Card card) {
         this.cards.add(card);
+        this.checkIfBusted();
+    }
+    
+    public boolean getIsBusted() {
+        return this.isBusted;
     }
     
     public int getFinalHandValue() {
@@ -70,6 +77,12 @@ public class Hand {
     
     public boolean isBlackJack() {
         return handValueCalculator.isBlackJack(this.cards);
+    }
+    
+    private void checkIfBusted() {
+        if(getFinalHandValue() > 21) {
+            this.isBusted = true;
+        }
     }
     
     public void splitHand() {

@@ -5,6 +5,8 @@
  */
 package nikoe.blackjack.logic;
 
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
@@ -134,7 +136,13 @@ public class BlackJackGameManager {
     
     public void startNewRound() {
         if(this.state == GameState.IDLE) {
-            this.seatPlaying = 1;
+            clearHands();
+            for(Seat seat : this.seats) {
+                if(seat.hasPlayer()) {
+                    this.seatPlaying = seat.getSeatNumber();
+                    break;
+                }
+            }
             this.state = GameState.ROUNDACTIVE;
             dealCards();
             repaintAll();
@@ -162,13 +170,23 @@ public class BlackJackGameManager {
         }
     }
     
+    private void clearHands() {
+        for(Seat s : this.seats) {
+            if(s.hasPlayer()) {
+                s.getPlayer().clearHands();
+            }
+        }
+        this.dealer.clearHands();
+    }
     public void hitCard() {
         Seat s = this.getSeat(seatPlaying);
         if(s.hasPlayer()) {
             Hand h = s.getPlayer().getHands().get(0);
             h.addCard(this.deck.dealCard());
+            if(h.getIsBusted()) {
+                this.activeHandStand();
+            }
         }
-        
         repaintAll();
     }
     
@@ -184,27 +202,18 @@ public class BlackJackGameManager {
             this.state = GameState.DEALTODEALER;
             repaintAll();
             dealToDealer();
-            System.out.println("DEAL TO DEALER");
         }
     }
     
-    private void dealToDealer() {
-
+    private void dealToDealer(){
             Hand h = this.dealer.getHands().get(0);
             while(h.getFinalHandValue() < 17) {
                 h.addCard(this.deck.dealCard());
             }
-            repaintAll();
-            //endRound();
+            endRound();
     }
     
     private void endRound() {
-            for(Seat s : this.seats) {
-                if(s.hasPlayer()) {
-                    s.getPlayer().clearHands();
-                }
-            }
-            this.dealer.clearHands();
             this.state = GameState.IDLE;
             repaintAll();
     }

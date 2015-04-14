@@ -37,17 +37,17 @@ public class Seat {
     public void setPlayer(Player player) {
         this.player = player;
     }
-
+    
+    public int getSeatNumber() {
+        return this.seatNumber;
+    }
+    
     public Player getPlayer() {
         return this.player;
     }
 
     public void release() {
         this.player = null;
-    }
-
-    public int getSeatNumber() {
-        return this.seatNumber;
     }
 
     public boolean hasPlayer() {

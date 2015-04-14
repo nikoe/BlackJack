@@ -11,7 +11,6 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import javax.swing.JButton;
 import javax.swing.JPanel;
-import javax.swing.Timer;
 import nikoe.blackjack.logic.BlackJackGameManager;
 import nikoe.blackjack.logic.GameState;
 
@@ -25,7 +24,7 @@ public class MenuPanel extends JPanel {
     private JButton startRound;
     private JButton hitButton;
     private JButton standButton;
-
+    
     public MenuPanel(BlackJackGameManager manager) {
         setLayout(new GridLayout(1, 4));
         this.manager = manager;
