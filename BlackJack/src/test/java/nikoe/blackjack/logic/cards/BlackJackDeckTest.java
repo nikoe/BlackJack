@@ -87,9 +87,4 @@ public class BlackJackDeckTest {
             assertEquals(false, deck.getAvailableCards().contains(c));
         }
     }
-    
-    @Test
-    public void testToString() {
-        assertEquals(801, this.deck.toString().length());
-    }
 }
