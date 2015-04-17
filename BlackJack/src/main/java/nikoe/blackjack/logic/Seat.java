@@ -16,7 +16,8 @@ import javax.imageio.ImageIO;
 import nikoe.blackjack.logic.players.Player;
 
 /**
- *
+ * Class for Seat
+ * Contains information about seated player
  * @author Niko
  */
 public class Seat {
@@ -25,6 +26,10 @@ public class Seat {
     private final int seatNumber;
     private Image img;
 
+    /**
+     * Constructor
+     * @param number
+     */
     public Seat(int number) {
         this.seatNumber = number;
         try {
@@ -34,22 +39,41 @@ public class Seat {
         }
     }
 
+    /**
+     * Sets player to a seat
+     * @param player
+     */
     public void setPlayer(Player player) {
         this.player = player;
     }
     
+    /**
+     * Returns seatnumber
+     * @return
+     */
     public int getSeatNumber() {
         return this.seatNumber;
     }
     
+    /**
+     * Return seated player
+     * @return
+     */
     public Player getPlayer() {
         return this.player;
     }
 
+    /**
+     * Release seat
+     */
     public void release() {
         this.player = null;
     }
 
+    /**
+     * Checks if seat has player
+     * @return
+     */
     public boolean hasPlayer() {
         if (this.player != null) {
             return true;
@@ -58,6 +82,10 @@ public class Seat {
         }
     }
 
+    /**
+     * Returns image for seat
+     * @return
+     */
     public Image getImage() {
         return this.img;
     }

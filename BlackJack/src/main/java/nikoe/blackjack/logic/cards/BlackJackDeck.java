@@ -3,7 +3,8 @@ package nikoe.blackjack.logic.cards;
 import nikoe.blackjack.util.CardImageLoader;
 
 /**
- *
+ * Class for BlackJackDeck
+ * BlackJackDeck may contain multiple 52 card decks
  * @author Niko
  */
 public class BlackJackDeck extends Deck {

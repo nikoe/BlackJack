@@ -6,7 +6,7 @@
 package nikoe.blackjack.logic.players;
 
 /**
- *
+ * DEALER CLASS
  * @author Niko
  */
 public class Dealer extends Player{

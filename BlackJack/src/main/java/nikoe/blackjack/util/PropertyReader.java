@@ -13,7 +13,7 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 
 /**
- *
+ * CLASS FOR READING GAME SETTINGS
  * @author Niko
  */
 public class PropertyReader {
@@ -21,11 +21,21 @@ public class PropertyReader {
     private Properties props;
     private String filename;
 
+    /**
+     *
+     * @param filename
+     */
     public PropertyReader(String filename) {
         this.props = new Properties();
         this.filename = filename;
     }
 
+    /**
+     * RETURNS PROPERTY, IF PROPERTY NOT FOUND THEN RETURN DEFAULT
+     * @param name
+     * @param def
+     * @return
+     */
     public String getProperty(String name, String def) {
         try {
             File jarPath=new File(this.getClass().getProtectionDomain().getCodeSource().getLocation().getPath());

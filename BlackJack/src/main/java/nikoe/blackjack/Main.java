@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package nikoe.blackjack;
 
 /**
@@ -26,8 +21,16 @@ import nikoe.blackjack.logic.players.Player;
 import nikoe.blackjack.ui.BlackJackUI;
 import nikoe.blackjack.util.PropertyReader;
 
+/**
+ * Main Class for this application
+ * @author Niko
+ */
 public class Main {
 
+    /**
+     * Main method for this application
+     * @param args
+     */
     public static void main(String[] args) {
         BlackJackGameManager manager = new BlackJackGameManager();
         BlackJackUI ui = new BlackJackUI(manager);

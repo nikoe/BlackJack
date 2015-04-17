@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package nikoe.blackjack.ui;
 
 import java.awt.Color;
@@ -23,7 +18,7 @@ import nikoe.blackjack.logic.Seat;
 import nikoe.blackjack.logic.players.Human;
 
 /**
- *
+ * PANEL FOR SEAT
  * @author Niko
  */
 public class SeatPanel extends JComponent {

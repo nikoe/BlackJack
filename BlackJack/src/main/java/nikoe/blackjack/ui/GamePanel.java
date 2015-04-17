@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package nikoe.blackjack.ui;
 
 import java.awt.Graphics;
@@ -18,7 +13,7 @@ import nikoe.blackjack.logic.cards.BlackJackDeck;
 import nikoe.blackjack.logic.cards.Card;
 
 /**
- *
+ * PANEL FOR GAME. CONTAINS TABLE AND SEATS
  * @author Niko
  */
 public class GamePanel extends JPanel {
@@ -29,6 +24,10 @@ public class GamePanel extends JPanel {
     private MenuPanel menu;
     private List<HandPanel> handPanels;
 
+    /**
+     *
+     * @param manager
+     */
     public GamePanel(final BlackJackGameManager manager) {
         setLayout(null);
         background = loadBackgroundImage();
@@ -121,6 +120,9 @@ public class GamePanel extends JPanel {
         this.menu = menu;
     }
     
+    /**
+     *
+     */
     public void repaintAll() {
         repaint();
         menu.repaint();

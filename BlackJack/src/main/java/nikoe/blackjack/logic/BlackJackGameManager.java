@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package nikoe.blackjack.logic;
 
 import java.awt.event.ActionEvent;
@@ -23,7 +18,7 @@ import nikoe.blackjack.ui.GamePanel;
 import nikoe.blackjack.util.PropertyReader;
 
 /**
- *
+ * This class is the "core" of this application. It handles all of the games flow
  * @author Niko
  */
 public class BlackJackGameManager {
@@ -39,6 +34,9 @@ public class BlackJackGameManager {
     
     private int seatPlaying;
     
+    /**
+     * Constructor
+     */
     public BlackJackGameManager() {
         this.seats = new ArrayList<>();
         this.dealer = new Dealer("Dealer");
@@ -65,6 +63,11 @@ public class BlackJackGameManager {
         this.deck = new BlackJackDeck(Integer.parseInt(this.props.getProperty("deck.numberOfDecks", "6")));
     }
 
+    /**
+     * Method for adding a player to specific seat
+     * @param playerName
+     * @param seatNumber
+     */
     public void addPlayerToSeat(String playerName, int seatNumber) {
         if (seatExists(seatNumber)) {
             for (Seat seat : this.seats) {
@@ -88,6 +91,11 @@ public class BlackJackGameManager {
         return true;
     }
 
+    /**
+     * Getter for geting a seat by seatnumber
+     * @param seatNumber
+     * @return
+     */
     public Seat getSeat(int seatNumber) {
         if (!seatExists(seatNumber)) {
             return null;
@@ -95,10 +103,18 @@ public class BlackJackGameManager {
         return this.seats.get(seatNumber-1);
     }
     
+    /**
+     * Getter for geting a dealers seat
+     * @return
+     */
     public Seat getDealerSeat() {
         return this.dealerSeat;
     }
     
+    /**
+     * Method to check if there any seat seated
+     * @return
+     */
     public boolean seatsHasPlayers() {
         boolean b = false;
         for(Seat s : this.getSeats()) {
@@ -110,10 +126,18 @@ public class BlackJackGameManager {
         return b;
     }
 
+    /**
+     * Getter for getting a list for seats
+     * @return
+     */
     public List<Seat> getSeats() {
         return Collections.unmodifiableList(seats);
     }
 
+    /**
+     * Method for realeasing a seat by seatnumber
+     * @param seatNumber
+     */
     public void releaseSeat(int seatNumber) {
         if (seatExists(seatNumber)) {
             for (Seat seat : this.seats) {
@@ -124,6 +148,10 @@ public class BlackJackGameManager {
         }
     }
     
+    /**
+     * Setter for setting UI
+     * @param ui
+     */
     public void setUi(GamePanel ui) {
         this.ui = ui;
     }
@@ -134,6 +162,9 @@ public class BlackJackGameManager {
         }
     }
     
+    /**
+     * Method for starting new round. Round starts only if GameState is IDLE. This deal starting cards for players
+     */
     public void startNewRound() {
         if(this.state == GameState.IDLE) {
             clearHands();
@@ -178,6 +209,10 @@ public class BlackJackGameManager {
         }
         this.dealer.clearHands();
     }
+
+    /**
+     * Method for taking card to player. BlackJackGameManager has propety to hold information about seat playing
+     */
     public void hitCard() {
         Seat s = this.getSeat(seatPlaying);
         if(s.hasPlayer()) {
@@ -190,6 +225,9 @@ public class BlackJackGameManager {
         repaintAll();
     }
     
+    /**
+     * Method for stand current hand
+     */
     public void activeHandStand() {
         if(isPlayerLeftBehind()) {
             for(int i = this.seatPlaying+1; i <= this.seats.size(); i++) {
@@ -230,6 +268,10 @@ public class BlackJackGameManager {
         return b;
     }
     
+    /**
+     * Method for getting current gamestate
+     * @return
+     */
     public GameState getGameState() {
         return this.state; 
     }

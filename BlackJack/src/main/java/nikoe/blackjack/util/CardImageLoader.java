@@ -15,7 +15,7 @@ import nikoe.blackjack.logic.cards.Rank;
 import nikoe.blackjack.logic.cards.Suit;
 
 /**
- *
+ * IMAGELOADER CLASS FOR CARDS
  * @author Niko
  */
 public class CardImageLoader {
@@ -25,6 +25,9 @@ public class CardImageLoader {
     private static final String PATH = "images/cards.png";
     private Map<Rank, Map<Suit, Image>> imageMap;
 
+    /**
+     *
+     */
     public CardImageLoader() {
         loadImages();
     }
@@ -62,6 +65,12 @@ public class CardImageLoader {
         }
     }
     
+    /**
+     * RETURNS AN IMAGE FOR CARD
+     * @param rank
+     * @param suit
+     * @return
+     */
     public Image getCardImage(Rank rank, Suit suit) {
         return imageMap.get(rank).get(suit);
     }

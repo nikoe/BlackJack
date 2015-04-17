@@ -15,7 +15,7 @@ import nikoe.blackjack.logic.BlackJackGameManager;
 import nikoe.blackjack.ui.GamePanel;
 
 /**
- *
+ * MAIN FRAME FOR GAME
  * @author ekni
  */
 public class BlackJackUI implements Runnable{
@@ -23,6 +23,10 @@ public class BlackJackUI implements Runnable{
     private JFrame frame;
     private BlackJackGameManager manager;
     
+    /**
+     *
+     * @param manager
+     */
     public BlackJackUI(BlackJackGameManager manager) {
         this.manager = manager;
     }

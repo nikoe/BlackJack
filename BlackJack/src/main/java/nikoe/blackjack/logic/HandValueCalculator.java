@@ -12,7 +12,7 @@ import nikoe.blackjack.logic.cards.Card;
 import nikoe.blackjack.logic.cards.Rank;
 
 /**
- *
+ * THIS CLASS CALCULATES VALUE FOR BLACKJACK HAND
  * @author Niko
  */
 public class HandValueCalculator {
@@ -52,6 +52,12 @@ public class HandValueCalculator {
         return value;
     }
 
+    /**
+     * Returns value of hand in a HandValueHolder
+     * If Hand contains ace HandValueHolder usually contains two handvalues example 6 and 16
+     * @param hand
+     * @return HandValueHolder
+     */
     public HandValueHolder getHandValue(List<Card> hand) {
         int value1 = 0, value2 = 0;
         boolean isFirstAce = true;
@@ -76,6 +82,11 @@ public class HandValueCalculator {
         return values;
     }
 
+    /**
+     * Returns integer value of hand, if hand contains two values returnd bigger one which is 21 or under
+     * @param hand
+     * @return
+     */
     public int getFinalHandValue(List<Card> hand) {
         HandValueHolder values = getHandValue(hand);
 
@@ -97,6 +108,11 @@ public class HandValueCalculator {
         }
     }
 
+    /**
+     * Checks if hand is a blackjack
+     * @param hand
+     * @return
+     */
     public boolean isBlackJack(List<Card> hand) {
         if (hand.size() != 2) {
             return false;

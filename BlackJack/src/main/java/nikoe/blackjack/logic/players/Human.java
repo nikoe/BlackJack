@@ -6,13 +6,17 @@
 package nikoe.blackjack.logic.players;
 
 /**
- *
+ * CLASS FOR HUMAN EXTENDS PLAYER
  * @author Niko
  */
 public class Human extends Player {
     
     private double money;
     
+    /**
+     *
+     * @param name
+     */
     public Human(String name) {
         super(name);
         initializeMoney();
@@ -25,10 +29,18 @@ public class Human extends Player {
         this.money = 500.0;
     }
     
+    /**
+     *
+     * @return
+     */
     public double getMoney() {
         return this.money;
     }
     
+    /**
+     *
+     * @param money
+     */
     public void setMoney(double money) {
         this.money = money;
     }

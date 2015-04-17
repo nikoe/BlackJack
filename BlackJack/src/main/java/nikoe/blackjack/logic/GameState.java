@@ -6,9 +6,33 @@
 package nikoe.blackjack.logic;
 
 /**
- *
+ * ENUM FOR GAMESTATE
  * @author Niko
  */
 public enum GameState {
-    IDLE, PLACEBETS, ROUNDACTIVE, DEALTODEALER, ENDROUND
+
+    /**
+     * IDLE STATE FOR GAME
+     */
+    IDLE,
+
+    /**
+     * STATE FOR PLACING BETS
+     */
+    PLACEBETS,
+
+    /**
+     * STATE FOR ROUND ACTIVE
+     */
+    ROUNDACTIVE,
+
+    /**
+     * STATE FOR DEAL TO DEALER
+     */
+    DEALTODEALER,
+
+    /**
+     * ENDROUND STATE FOR GAME
+     */
+    ENDROUND
 }
