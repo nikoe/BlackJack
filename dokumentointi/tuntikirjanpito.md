@@ -62,4 +62,19 @@ Tunnit: 3h
 
 Tunnit: 3h
 
-Yhteensä: 33h
+#13.4.2015#
+
+* Pelejä pitäisi nyt pystyä pelaamaan monta kierosta putkeen
+* Jos pelaaja menee yli 21 niin vuorosiirtyy seuraavalle, jos seuraavaa ei ole niin vuoro siirtyy automaattisesti jakajalle
+* Kun kieros loppuu voi uuden kieroksen aloittaa
+
+Tunnit: 3h
+
+#17.4.2014#
+
+* Javadoccien kirjoitusta
+* Sekvenssikaaviot
+
+Tunnit: 2h
+
+Yhteensä: 38h
