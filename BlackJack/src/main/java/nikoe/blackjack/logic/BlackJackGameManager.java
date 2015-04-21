@@ -229,6 +229,8 @@ public class BlackJackGameManager {
      * Method for stand current hand
      */
     public void activeHandStand() {
+        Hand curHand = this.getSeat(seatPlaying).getPlayer().getHands().get(0);
+        curHand.setReady();
         if(isPlayerLeftBehind()) {
             for(int i = this.seatPlaying+1; i <= this.seats.size(); i++) {
                 if(this.getSeat(i).hasPlayer()) {

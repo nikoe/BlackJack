@@ -81,27 +81,27 @@ public class GamePanel extends JPanel {
     private void addHandPanels() {
         int seatCount = this.manager.getSeats().size();
         if (seatCount == 1) {
-            addHandPanel(this.manager.getSeat(1), 450, 335);
+            addHandPanel(this.manager.getSeat(1), 450, 45, 250, 400);
         } else if (seatCount == 2) {
-            addHandPanel(this.manager.getSeat(1), 700, 295);
-            addHandPanel(this.manager.getSeat(2), 190, 300);
+            addHandPanel(this.manager.getSeat(1), 700, 10, 250, 400);
+            addHandPanel(this.manager.getSeat(2), 190, 10, 250, 400);
         } else if (seatCount == 3) {
-            addHandPanel(this.manager.getSeat(1), 810, 260);
-            addHandPanel(this.manager.getSeat(2), 450, 345);
-            addHandPanel(this.manager.getSeat(3), 50, 230);
+            addHandPanel(this.manager.getSeat(1), 790, 10, 250, 320);
+            addHandPanel(this.manager.getSeat(2), 460, 120, 250, 320);
+            addHandPanel(this.manager.getSeat(3), 70, 10, 250, 320);
         } else if (seatCount == 4) {
-            addHandPanel(this.manager.getSeat(1), 840, 230);
-            addHandPanel(this.manager.getSeat(2), 600, 320);
-            addHandPanel(this.manager.getSeat(3), 310, 320);
-            addHandPanel(this.manager.getSeat(4), 50, 230);
+            addHandPanel(this.manager.getSeat(1), 840, 10, 250, 320);
+            addHandPanel(this.manager.getSeat(2), 580, 120, 250, 320);
+            addHandPanel(this.manager.getSeat(3), 310, 120, 250, 320);
+            addHandPanel(this.manager.getSeat(4), 50, 10, 250, 320);
         }
         
-        addHandPanel(this.manager.getDealerSeat(), 470, 15 );
+        addHandPanel(this.manager.getDealerSeat(), 450, 15, 250, 97 );
     }
     
-    private void addHandPanel(Seat seat, int x, int y) {
+    private void addHandPanel(Seat seat, int x, int y, int width, int height) {
         HandPanel h = new HandPanel(seat);
-        h.setBounds(x, y, 340, 400);
+        h.setBounds(x, y, width, height);
         add(h);
         this.handPanels.add(h);
     }
