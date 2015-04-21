@@ -18,7 +18,9 @@ import nikoe.blackjack.ui.GamePanel;
 import nikoe.blackjack.util.PropertyReader;
 
 /**
- * This class is the "core" of this application. It handles all of the games flow
+ * This class is the "core" of this application. It handles all of the games
+ * flow
+ *
  * @author Niko
  */
 public class BlackJackGameManager {
@@ -30,10 +32,9 @@ public class BlackJackGameManager {
     private BlackJackDeck deck;
     private GameState state;
     private GamePanel ui;
-    
-    
+
     private int seatPlaying;
-    
+
     /**
      * Constructor
      */
@@ -65,6 +66,7 @@ public class BlackJackGameManager {
 
     /**
      * Method for adding a player to specific seat
+     *
      * @param playerName
      * @param seatNumber
      */
@@ -93,6 +95,7 @@ public class BlackJackGameManager {
 
     /**
      * Getter for geting a seat by seatnumber
+     *
      * @param seatNumber
      * @return
      */
@@ -100,25 +103,27 @@ public class BlackJackGameManager {
         if (!seatExists(seatNumber)) {
             return null;
         }
-        return this.seats.get(seatNumber-1);
+        return this.seats.get(seatNumber - 1);
     }
-    
+
     /**
      * Getter for geting a dealers seat
+     *
      * @return
      */
     public Seat getDealerSeat() {
         return this.dealerSeat;
     }
-    
+
     /**
      * Method to check if there any seat seated
+     *
      * @return
      */
     public boolean seatsHasPlayers() {
         boolean b = false;
-        for(Seat s : this.getSeats()) {
-            if(s.hasPlayer()) {
+        for (Seat s : this.getSeats()) {
+            if (s.hasPlayer()) {
                 b = true;
                 break;
             }
@@ -128,6 +133,7 @@ public class BlackJackGameManager {
 
     /**
      * Getter for getting a list for seats
+     *
      * @return
      */
     public List<Seat> getSeats() {
@@ -136,6 +142,7 @@ public class BlackJackGameManager {
 
     /**
      * Method for realeasing a seat by seatnumber
+     *
      * @param seatNumber
      */
     public void releaseSeat(int seatNumber) {
@@ -147,29 +154,32 @@ public class BlackJackGameManager {
             }
         }
     }
-    
+
     /**
      * Setter for setting UI
+     *
      * @param ui
      */
     public void setUi(GamePanel ui) {
         this.ui = ui;
     }
-    
+
     private void repaintAll() {
-        if(this.ui != null) {
+        if (this.ui != null) {
             this.ui.repaintAll();
         }
     }
-    
+
     /**
-     * Method for starting new round. Round starts only if GameState is IDLE. This deal starting cards for players
+     * Method for starting new round. Round starts only if GameState is IDLE.
+     * This deal starting cards for players
      */
     public void startNewRound() {
-        if(this.state == GameState.IDLE) {
+        if (this.state == GameState.IDLE) {
             clearHands();
-            for(Seat seat : this.seats) {
-                if(seat.hasPlayer()) {
+            checkDeck();
+            for (Seat seat : this.seats) {
+                if (seat.hasPlayer()) {
                     this.seatPlaying = seat.getSeatNumber();
                     break;
                 }
@@ -179,31 +189,41 @@ public class BlackJackGameManager {
             repaintAll();
         }
     }
-    
+
     private void dealCards() {
         this.dealer.addHand(new Hand());
-        for(Seat seat : this.seats) {
-            if(seat.hasPlayer()) {
+        for (Seat seat : this.seats) {
+            if (seat.hasPlayer()) {
                 seat.getPlayer().addHand(new Hand());
             }
         }
-        for(int i = 0; i < 2; i++) {
-            for(Seat seat : this.seats) {
-                if(seat.hasPlayer()) {
+        for (int i = 0; i < 2; i++) {
+            for (Seat seat : this.seats) {
+                if (seat.hasPlayer()) {
                     Hand h = seat.getPlayer().getHands().get(0);
                     h.addCard(this.deck.dealCard());
                 }
             }
             //Only first card to dealer
-            if(i == 0) {
+            if (i == 0) {
                 this.dealer.getHands().get(0).addCard(this.deck.dealCard());
             }
         }
     }
-    
+
+    private void checkDeck() {
+        double cardsInDeck = this.deck.getNumberOfDecks() * 52;
+        double cardsLeft = this.deck.getAvailableCards().size();
+        double percentage;
+        percentage = cardsLeft / cardsInDeck * 100.0;
+        if (percentage < 12.0) {
+            this.deck.reset();
+        }
+    }
+
     private void clearHands() {
-        for(Seat s : this.seats) {
-            if(s.hasPlayer()) {
+        for (Seat s : this.seats) {
+            if (s.hasPlayer()) {
                 s.getPlayer().clearHands();
             }
         }
@@ -211,70 +231,92 @@ public class BlackJackGameManager {
     }
 
     /**
-     * Method for taking card to player. BlackJackGameManager has propety to hold information about seat playing
+     * Method for taking card to player. BlackJackGameManager has propety to
+     * hold information about seat playing
      */
     public void hitCard() {
         Seat s = this.getSeat(seatPlaying);
-        if(s.hasPlayer()) {
+        if (s.hasPlayer()) {
             Hand h = s.getPlayer().getHands().get(0);
             h.addCard(this.deck.dealCard());
-            if(h.getIsBusted()) {
+            if (h.getIsBusted()) {
                 this.activeHandStand();
             }
         }
         repaintAll();
     }
-    
+
     /**
      * Method for stand current hand
      */
     public void activeHandStand() {
         Hand curHand = this.getSeat(seatPlaying).getPlayer().getHands().get(0);
         curHand.setReady();
-        if(isPlayerLeftBehind()) {
-            for(int i = this.seatPlaying+1; i <= this.seats.size(); i++) {
-                if(this.getSeat(i).hasPlayer()) {
+        if (isPlayerLeftBehind()) {
+            for (int i = this.seatPlaying + 1; i <= this.seats.size(); i++) {
+                if (this.getSeat(i).hasPlayer()) {
                     this.seatPlaying = i;
                     break;
                 }
             }
-        }else {
+        } else {
             this.state = GameState.DEALTODEALER;
             repaintAll();
             dealToDealer();
         }
     }
-    
-    private void dealToDealer(){
+
+    private void dealToDealer() {
+        if (!isAllBusted()) {
             Hand h = this.dealer.getHands().get(0);
-            while(h.getFinalHandValue() < 17) {
+            while (h.getFinalHandValue() < 17) {
                 h.addCard(this.deck.dealCard());
             }
-            endRound();
+            h.setReady();
+        }
+        endRound();
     }
-    
+
+    private boolean isAllBusted() {
+        boolean allPlayersBusted = true;
+        for (Seat s : this.seats) {
+            if (s.hasPlayer()) {
+                for (Hand h : s.getPlayer().getHands()) {
+                    if (h.getFinalHandValue() <= 21) {
+                        return false;
+                    }
+                }
+            }
+        }
+
+        return allPlayersBusted;
+    }
+
     private void endRound() {
-            this.state = GameState.IDLE;
-            repaintAll();
+        this.state = GameState.IDLE;
+        repaintAll();
     }
-    
+
     private boolean isPlayerLeftBehind() {
         boolean b = false;
-        if(this.seatPlaying == this.seats.size()) return false;
-        for(int i = this.seatPlaying+1; i <= this.seats.size(); i++) {
-            if(this.getSeat(i).hasPlayer()) {
+        if (this.seatPlaying == this.seats.size()) {
+            return false;
+        }
+        for (int i = this.seatPlaying + 1; i <= this.seats.size(); i++) {
+            if (this.getSeat(i).hasPlayer()) {
                 b = true;
                 break;
             }
         }
         return b;
     }
-    
+
     /**
      * Method for getting current gamestate
+     *
      * @return
      */
     public GameState getGameState() {
-        return this.state; 
+        return this.state;
     }
 }

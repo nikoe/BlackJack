@@ -33,5 +33,9 @@ public class BlackJackDeck extends Deck {
         }
         this.shuffle();
     }
+    
+    public int getNumberOfDecks() {
+        return this.numberOfDecks;
+    }
 
 }
