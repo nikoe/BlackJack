@@ -77,4 +77,16 @@ Tunnit: 3h
 
 Tunnit: 2h
 
-Yhteensä: 38h
+#20.4.2015#
+
+* Käyttöliittymään käsien arvot näkyviin.
+
+Tunnit: 3h
+
+#25.4.2015#
+
+* Vähän testejä lisää
+
+Tunnit: 1h
+
+Yhteensä: 42h
