@@ -5,7 +5,6 @@ import java.awt.Font;
 import java.awt.Graphics;
 import java.util.ArrayList;
 import java.util.List;
-import javafx.scene.layout.Border;
 import javax.swing.BorderFactory;
 import javax.swing.JLabel;
 import javax.swing.JPanel;

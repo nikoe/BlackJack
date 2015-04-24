@@ -40,9 +40,16 @@
                 <configuration>
                     <targetClasses>
                         <param>nikoe.blackjack.logic.cards*</param>
+                        <param>nikoe.blackjack.logic.players*</param>
+                        <param>nikoe.blackjack.logic*</param>
+                        <param>nikoe.blackjack*</param>
                     </targetClasses>
                     <targetTests>
                         <param>nikoe.blackjack.logic.cards*</param>
+                        <param>nikoe.blackjack.logic.players*</param>
+                        <param>nikoe.blackjack.logic*</param>
+                        <param>nikoe.blackjack.util*</param>
+                        <param>nikoe.blackjack*</param>
                     </targetTests>
                 </configuration>
             </plugin>
