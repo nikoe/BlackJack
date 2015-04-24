@@ -11,6 +11,7 @@ import nikoe.blackjack.logic.cards.Rank;
 import nikoe.blackjack.logic.cards.Suit;
 import org.junit.After;
 import org.junit.AfterClass;
+import org.junit.Assert;
 import org.junit.Before;
 import org.junit.BeforeClass;
 import org.junit.Test;
@@ -54,6 +55,22 @@ public class HumanTest {
         addHand();
         this.human.clearHands();
         assertEquals(0, this.human.getHands().size());
+    }
+    
+    @Test
+    public void testsetMoney() {
+        this.human.setMoney(50.4);
+        assertEquals(this.human.getMoney(), 50, 4);
+    }
+    
+    @Test
+    public void testgetMoney() {
+        Assert.assertNotEquals(this.human.getMoney(), 0, 0);
+    }
+    
+    @Test
+    public void testgetName() {
+        assertEquals(this.human.getName(), "test");
     }
     
     private void addHand() {
