@@ -42,12 +42,14 @@ public class MenuPanel extends JPanel {
             if (this.manager.getGameState() == GameState.IDLE) {
                 this.hitButton.setVisible(false);
                 this.standButton.setVisible(false);
+                this.startRound.setText("New Round");
                 this.startRound.setVisible(true);
             }
             if (this.manager.getGameState() == GameState.PLACEBETS) {
                 this.hitButton.setVisible(false);
                 this.standButton.setVisible(false);
-                this.startRound.setVisible(false);
+                this.startRound.setText("Deal");
+                this.startRound.setVisible(true);
             }
             if (this.manager.getGameState() == GameState.ROUNDACTIVE) {
                 this.hitButton.setVisible(true);
@@ -86,6 +88,8 @@ public class MenuPanel extends JPanel {
         @Override
         public void actionPerformed(ActionEvent e) {
             if (manager.seatsHasPlayers() && manager.getGameState() == GameState.IDLE) {
+                manager.placeBets();
+            }else if(manager.seatsHasPlayers() && manager.getGameState() == GameState.PLACEBETS) {
                 manager.startNewRound();
             }
         }

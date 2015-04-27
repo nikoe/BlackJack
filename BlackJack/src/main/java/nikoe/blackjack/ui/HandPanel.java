@@ -68,13 +68,15 @@ public class HandPanel extends JPanel {
     }
 
     private void addValue(Hand h, int x, int y) {
-        JLabel t = new JLabel();
-        t.setText(getHandValueString(h));
-        t.setFont(new Font("Verdana", Font.BOLD, 14));
-        t.setBounds(x + 50, y, 50, 50);
-        t.setForeground(Color.WHITE);
-        this.list.add(t);
-        add(t);
+        if(h.getFinalHandValue() > 0) {
+            JLabel t = new JLabel();
+            t.setText(getHandValueString(h));
+            t.setFont(new Font("Verdana", Font.BOLD, 14));
+            t.setBounds(x + 50, y, 50, 50);
+            t.setForeground(Color.WHITE);
+            this.list.add(t);
+            add(t);
+        }
     }
 
     private String getHandValueString(Hand h) {

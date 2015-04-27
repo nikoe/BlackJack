@@ -118,7 +118,14 @@ public class GamePanel extends JPanel {
 
     private void addMenuPanel() {
         MenuPanel menu = new MenuPanel(this.manager);
-        menu.setBounds(0, this.background.getHeight(null)-45, 1024, 45);
+        int y = this.background.getHeight(null);
+        String os = System.getProperty("os.name", "generic").toLowerCase();
+        if(os.contains("win")) {
+            y -= 74;
+        }else {
+            y -= 45;
+        }
+        menu.setBounds(0, y, 1024, 45);
         add(menu);
         this.menu = menu;
     }

@@ -124,8 +124,12 @@ public class BlackJackGameManager {
         boolean b = false;
         for (Seat s : this.getSeats()) {
             if (s.hasPlayer()) {
-                b = true;
-                break;
+                Human h  = (Human) s.getPlayer();
+                if(h.getMoney() >= 10.0 || h.getBet() > 0) {
+                    b = true;
+                    break;   
+                }
+
             }
         }
         return b;
@@ -169,24 +173,33 @@ public class BlackJackGameManager {
             this.ui.repaintAll();
         }
     }
-
+    
+    public void placeBets() {
+        if(this.state == GameState.IDLE) {
+            clearHands();
+            this.state = GameState.PLACEBETS;
+            repaintAll();
+        }
+    }
+    
     /**
      * Method for starting new round. Round starts only if GameState is IDLE.
      * This deal starting cards for players
      */
     public void startNewRound() {
-        if (this.state == GameState.IDLE) {
-            clearHands();
+        if (this.state == GameState.PLACEBETS) {
             checkDeck();
 
             if (!isBetsSetted()) {
                 return;
             }
-
             for (Seat seat : this.seats) {
                 if (seat.hasPlayer()) {
-                    this.seatPlaying = seat.getSeatNumber();
-                    break;
+                    Human human = (Human) seat.getPlayer();
+                    if(human.getBet() > 0) {
+                        this.seatPlaying = seat.getSeatNumber();
+                        break;
+                    }
                 }
             }
             this.state = GameState.ROUNDACTIVE;
@@ -276,8 +289,11 @@ public class BlackJackGameManager {
         if (isPlayerLeftBehind()) {
             for (int i = this.seatPlaying + 1; i <= this.seats.size(); i++) {
                 if (this.getSeat(i).hasPlayer()) {
-                    this.seatPlaying = i;
-                    break;
+                    Human h = (Human) this.getSeat(i).getPlayer();
+                    if(h.getBet() > 0) {
+                        this.seatPlaying = i;
+                        break;
+                    }
                 }
             }
         } else {
@@ -314,40 +330,28 @@ public class BlackJackGameManager {
     }
 
     private void payWins() {
-        int dealerScore = this.dealer.getHands().get(0).getFinalHandValue();
-
+        Hand dealerHand = this.dealer.getHands().get(0);
         for (Seat s : this.seats) {
             if (s.hasPlayer()) {
-                Human h = (Human) s.getPlayer();
-                int handScore = h.getHands().get(0).getFinalHandValue();
-                double bet = h.getBet();
-                if (handScore < 22) {
-                    if (dealerScore < 22) {
-                        if (handScore > dealerScore) {
-                            double win;
-                            if (h.getHands().get(0).isBlackJack()) {
-                                win = (bet * 1.5) + bet;
-                            } else {
-                                win = (bet * 1.0) + bet;
-                            }
-                            h.setMoney(h.getMoney() + win);
-                        } else if (handScore == dealerScore) {
-                            h.setMoney(h.getMoney() + bet);
-                        }
-                    } else {
-                        double win;
-                        if (h.getHands().get(0).isBlackJack()) {
-                            win = (bet * 1.5) + bet;
-                        } else {
-                            win = (bet * 1.0) + bet;
-                        }
-                        h.setMoney(h.getMoney() + win);
-                    }
-
-                    h.setBet(0);
-                } else {
-                    h.setBet(0);
+                Human human = (Human) s.getPlayer();
+                Hand hand = human.getHands().get(0);
+                double bet = human.getBet();
+                double win = 0;
+                if(hand.isBlackJack() && !dealerHand.isBlackJack()) {
+                    win = (bet * 1.5) + bet;
+                }else if(dealerHand.getFinalHandValue() > 21 && hand.getFinalHandValue() < 22) {
+                    win = (bet * 1.0) + bet;
+                }else if((hand.getFinalHandValue() < 22) && hand.getFinalHandValue() > dealerHand.getFinalHandValue()) {
+                    win = (bet * 1.0) + bet;
+                }else if(hand.getFinalHandValue() > 21) {
+                    win = 0;
+                }else if(hand.getFinalHandValue() == dealerHand.getFinalHandValue()) {
+                    win = bet;
                 }
+                
+                human.setMoney(human.getMoney() + win);
+                human.setBet(0);
+                
             }
         }
 
