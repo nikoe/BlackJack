@@ -1,5 +1,6 @@
 package nikoe.blackjack.ui;
 
+import java.awt.Container;
 import java.awt.Graphics;
 import java.awt.Image;
 import java.awt.MediaTracker;
@@ -23,15 +24,17 @@ public class GamePanel extends JPanel {
     private List<SeatPanel> seatPanels;
     private MenuPanel menu;
     private List<HandPanel> handPanels;
+    private Container container;
 
     /**
      *
      * @param manager
      */
-    public GamePanel(final BlackJackGameManager manager) {
+    public GamePanel(final BlackJackGameManager manager, Container container) {
         setLayout(null);
         background = loadBackgroundImage();
         this.manager = manager;
+        this.container = container;
         this.seatPanels = new ArrayList<>();
         this.handPanels = new ArrayList<>();
         addSeatPanels();
@@ -108,14 +111,14 @@ public class GamePanel extends JPanel {
 
     private void addSeatPanel(Seat seat, int x, int y) {
         SeatPanel panel = new SeatPanel(seat, this.manager);
-        panel.setBounds(x, y, (int) panel.getPreferredSize().getWidth() - 25, (int) panel.getPreferredSize().getHeight() - 25);
+        panel.setBounds(x, y, (int) panel.getPreferredSize().getWidth() - 25, (int) panel.getPreferredSize().getHeight() );
         add(panel);
         this.seatPanels.add(panel);
     }
 
     private void addMenuPanel() {
         MenuPanel menu = new MenuPanel(this.manager);
-        menu.setBounds(0, 695, 1024, 45);
+        menu.setBounds(0, this.background.getHeight(null)-45, 1024, 45);
         add(menu);
         this.menu = menu;
     }

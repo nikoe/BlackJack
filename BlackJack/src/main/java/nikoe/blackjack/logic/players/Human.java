@@ -12,6 +12,7 @@ package nikoe.blackjack.logic.players;
 public class Human extends Player {
     
     private double money;
+    private double bet;
     
     /**
      *
@@ -43,6 +44,14 @@ public class Human extends Player {
      */
     public void setMoney(double money) {
         this.money = money;
+    }
+    
+    public void setBet(double bet) {
+        this.bet = bet;
+    }
+    
+    public double getBet() {
+        return this.bet;
     }
     
 }

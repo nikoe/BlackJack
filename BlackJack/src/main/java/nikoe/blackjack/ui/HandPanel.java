@@ -12,6 +12,7 @@ import nikoe.blackjack.logic.HandValueHolder;
 import nikoe.blackjack.logic.Seat;
 import nikoe.blackjack.logic.cards.Card;
 import nikoe.blackjack.logic.cards.Hand;
+import nikoe.blackjack.logic.players.Human;
 
 /**
  * PANEL FOR HAND IN A TABLE
@@ -51,10 +52,10 @@ public class HandPanel extends JPanel {
             }
         }
     }
-        
+
     @Override
     public void repaint() {
-        if(this.list != null) {
+        if (this.list != null) {
             removeOldValues();
         }
     }

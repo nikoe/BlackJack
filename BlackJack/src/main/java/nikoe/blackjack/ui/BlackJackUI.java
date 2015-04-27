@@ -43,7 +43,7 @@ public class BlackJackUI implements Runnable{
     }
     
     private void createGamePanel(Container container) {
-        GamePanel gamePanel = new GamePanel(manager);
+        GamePanel gamePanel = new GamePanel(manager, container);
         manager.setUi(gamePanel);
         container.add(gamePanel);
     } 
