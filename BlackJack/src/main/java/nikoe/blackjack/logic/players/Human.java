@@ -54,4 +54,7 @@ public class Human extends Player {
         return this.bet;
     }
     
+    public boolean canDouble() {
+        return this.money >= this.bet;
+    } 
 }

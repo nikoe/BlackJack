@@ -296,13 +296,43 @@ public class BlackJackGameManager {
                     }
                 }
             }
+            repaintAll();
         } else {
+            this.seatPlaying = 0;
             this.state = GameState.DEALTODEALER;
             repaintAll();
             dealToDealer();
         }
     }
-
+    
+    
+    public void activeHandDouble() {
+        if(this.activeHandCanDouble()) {
+            Seat s = this.getSeat(this.seatPlaying);
+            if(s.hasPlayer()) {
+                Human h = (Human) s.getPlayer();
+                double bet = h.getBet();
+                h.setMoney(h.getMoney() - bet);
+                bet *= 2;
+                h.setBet(bet);
+                Hand hand = h.getHands().get(0);
+                hand.addCard(this.deck.dealCard());
+                hand.setDoubled(true);
+                this.activeHandStand();
+            }
+        }
+    }
+    
+    public boolean activeHandCanDouble() {
+        Seat s = this.getSeat(this.seatPlaying);
+        if(s.hasPlayer()) {
+            Human h = (Human) s.getPlayer();
+            return h.canDouble();
+        }else {
+            return false;
+        }
+    }
+    
     private void dealToDealer() {
         if (!isAllBusted()) {
             Hand h = this.dealer.getHands().get(0);
@@ -387,5 +417,9 @@ public class BlackJackGameManager {
      */
     public GameState getGameState() {
         return this.state;
+    }
+    
+    public int getSeatPlaying() {
+        return this.seatPlaying;
     }
 }

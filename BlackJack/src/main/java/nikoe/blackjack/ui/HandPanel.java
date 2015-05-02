@@ -98,7 +98,12 @@ public class HandPanel extends JPanel {
             if (hvh.getPossibleHandValues().size() == 1) {
                 value = "" + hvh.getPossibleHandValues().get(0);
             } else if (hvh.getPossibleHandValues().size() == 2) {
-                value = "" + hvh.getPossibleHandValues().get(0) + "/" + hvh.getPossibleHandValues().get(1);
+                if(hvh.getPossibleHandValues().get(1) < 22) {
+                    value = "" + hvh.getPossibleHandValues().get(0) + "/" + hvh.getPossibleHandValues().get(1);
+                }else {
+                    value = "" + hvh.getPossibleHandValues().get(0);
+                }
+
             }
 
             if (h.getFinalHandValue() > 21) {

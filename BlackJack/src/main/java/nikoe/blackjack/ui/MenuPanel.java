@@ -11,6 +11,7 @@ import nikoe.blackjack.logic.GameState;
 
 /**
  * PANEL FOR MENU
+ *
  * @author Niko
  */
 public class MenuPanel extends JPanel {
@@ -19,7 +20,8 @@ public class MenuPanel extends JPanel {
     private JButton startRound;
     private JButton hitButton;
     private JButton standButton;
-    
+    private JButton doubleButton;
+
     public MenuPanel(BlackJackGameManager manager) {
         setLayout(new GridLayout(1, 4));
         this.manager = manager;
@@ -42,29 +44,41 @@ public class MenuPanel extends JPanel {
             if (this.manager.getGameState() == GameState.IDLE) {
                 this.hitButton.setVisible(false);
                 this.standButton.setVisible(false);
+                this.doubleButton.setVisible(false);
                 this.startRound.setText("New Round");
                 this.startRound.setVisible(true);
             }
             if (this.manager.getGameState() == GameState.PLACEBETS) {
                 this.hitButton.setVisible(false);
                 this.standButton.setVisible(false);
+                this.doubleButton.setVisible(false);
                 this.startRound.setText("Deal");
                 this.startRound.setVisible(true);
             }
             if (this.manager.getGameState() == GameState.ROUNDACTIVE) {
                 this.hitButton.setVisible(true);
                 this.standButton.setVisible(true);
+                this.doubleButton.setVisible(true);
                 this.startRound.setVisible(false);
+                
+                if(this.manager.activeHandCanDouble()) {
+                    this.doubleButton.setEnabled(true);
+                }else {
+                    this.doubleButton.setEnabled(false);
+                }
+                
             }
             if (this.manager.getGameState() == GameState.DEALTODEALER) {
                 this.hitButton.setVisible(false);
                 this.standButton.setVisible(false);
                 this.startRound.setVisible(false);
+                this.doubleButton.setVisible(false);
             }
             if (this.manager.getGameState() == GameState.ENDROUND) {
                 this.hitButton.setVisible(false);
                 this.standButton.setVisible(false);
                 this.startRound.setVisible(false);
+                this.doubleButton.setVisible(false);
             }
         }
     }
@@ -77,6 +91,10 @@ public class MenuPanel extends JPanel {
         hitButton.setVisible(false);
         hitButton.addActionListener(new HitButtonListener());
         add(hitButton);
+        doubleButton = new JButton("Double");
+        doubleButton.setVisible(false);
+        doubleButton.addActionListener(new DoubleButtonListener());
+        add(doubleButton);
         standButton = new JButton("Stand");
         standButton.setVisible(false);
         standButton.addActionListener(new StandButtonListener());
@@ -89,7 +107,7 @@ public class MenuPanel extends JPanel {
         public void actionPerformed(ActionEvent e) {
             if (manager.seatsHasPlayers() && manager.getGameState() == GameState.IDLE) {
                 manager.placeBets();
-            }else if(manager.seatsHasPlayers() && manager.getGameState() == GameState.PLACEBETS) {
+            } else if (manager.seatsHasPlayers() && manager.getGameState() == GameState.PLACEBETS) {
                 manager.startNewRound();
             }
         }
@@ -113,6 +131,17 @@ public class MenuPanel extends JPanel {
         public void actionPerformed(ActionEvent e) {
             if (manager.getGameState() == GameState.ROUNDACTIVE) {
                 manager.activeHandStand();
+            }
+        }
+
+    }
+
+    class DoubleButtonListener implements ActionListener {
+
+        @Override
+        public void actionPerformed(ActionEvent e) {
+            if (manager.getGameState() == GameState.ROUNDACTIVE) {
+                manager.activeHandDouble();
             }
         }
 

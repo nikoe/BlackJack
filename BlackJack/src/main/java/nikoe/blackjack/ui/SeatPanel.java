@@ -4,12 +4,17 @@ import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Font;
 import java.awt.Graphics;
+import java.awt.Image;
 import java.awt.Insets;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
+import java.io.IOException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javax.imageio.ImageIO;
 import javax.swing.JButton;
 import javax.swing.JComponent;
 import javax.swing.JLabel;
@@ -89,9 +94,19 @@ public class SeatPanel extends JComponent {
 
     @Override
     public void paintComponent(Graphics g) {
-        g.drawImage(this.seat.getImage(), 0, 0, this);
-        checkGameState();
-        resetTexts();
+        try {
+            Image img;
+            if (this.manager.getSeatPlaying() == this.seat.getSeatNumber()) {
+                img = ImageIO.read(getClass().getClassLoader().getResource("images/seat_active.png"));
+            } else {
+                img = ImageIO.read(getClass().getClassLoader().getResource("images/seat.png"));
+            }
+            g.drawImage(img, 0, 0, this);
+            checkGameState();
+            resetTexts();
+        } catch (IOException ex) {
+            Logger.getLogger(Seat.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }
 
     private void checkGameState() {
@@ -110,7 +125,7 @@ public class SeatPanel extends JComponent {
             playerName.setBounds(47, 50, 100, 50);
             playerMoney.setText(String.valueOf(h.getMoney()));
             playerName.setText(h.getName());
-            playerBet.setText("Bet: " + h.getBet());
+            playerBet.setText("Bet: " + String.valueOf(h.getBet()));
 
         } else {
             playerName.setBounds(47, 70, 100, 50);
@@ -171,7 +186,7 @@ public class SeatPanel extends JComponent {
                 if (seat.hasPlayer()) {
                     Human h = (Human) seat.getPlayer();
                     if (h.getBet() >= 10) {
-                        h.setMoney(h.getMoney()+10.0);
+                        h.setMoney(h.getMoney() + 10.0);
                         h.setBet(h.getBet() - 10.0);
                         repaint();
                     }
