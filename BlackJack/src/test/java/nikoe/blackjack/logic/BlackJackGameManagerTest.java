@@ -135,6 +135,14 @@ public class BlackJackGameManagerTest {
     }
 
     @Test
+    public void testReleaseSeat2() {
+        initManager();
+        initPlayer(1);
+        this.manager.releaseSeat(1);
+        assertEquals(null, this.getHumanFromSeat(1));
+    }
+    
+    @Test
     public void testStartNewRoundPlayerHasTwoCards() {
         initManager();
         initPlayer(1);
@@ -290,18 +298,51 @@ public class BlackJackGameManagerTest {
         h2.setBet(10.0);
         h2.setMoney(h2.getMoney() - h2.getBet());
         this.manager.startNewRound();
-        this.manager.activeHandStand();
-
-        Dealer d = (Dealer) this.manager.getDealerSeat().getPlayer();
-        Hand h = d.getHands().get(0);
-        while (h.getFinalHandValue() < 22) {
-            h.addCard(new Card(Rank.ACE, Suit.CLUBS, null));
+        while(h1.getHands().get(0).getFinalHandValue() < 22) {
+            h1.getHands().get(0).addCard(new Card(Rank.TEN, Suit.DIAMONDS, null));
         }
-
+        this.manager.activeHandStand();
         this.manager.activeHandStand();
 
-        assertEquals(h1.getMoney(), 490,0);
+        Assert.assertEquals(490, h1.getMoney(), 0);
 
+    }
+    
+    @Test
+    public void testActiveHandDouble() {
+        initManager();
+        initPlayer(1);
+        initPlayer(2);
+        Human h1 = this.getHumanFromSeat(1);
+        Human h2 = this.getHumanFromSeat(2);
+        this.manager.placeBets();
+        h1.setBet(10.0);
+        h1.setMoney(h1.getMoney() - h1.getBet());
+        h2.setBet(10.0);
+        h2.setMoney(h2.getMoney() - h2.getBet());
+        this.manager.startNewRound();
+        this.manager.activeHandDouble();
+        assertEquals(3, this.getHumanFromSeat(1).getHands().get(0).getCards().size());
+        assertEquals(480, this.getHumanFromSeat(1).getMoney(), 0);
+    }
+    
+    @Test
+    public void testCannotDoubleIfBetTooMuch() {
+        initManager();
+        initPlayer(1);
+        Human h = this.getHumanFromSeat(1);
+        h.setBet(300.0);
+        h.setMoney(h.getMoney() - h.getBet());
+        this.manager.placeBets();
+        this.manager.startNewRound();
+        assertEquals(false, this.manager.activeHandCanDouble());
+    }
+    
+    @Test
+    public void testAddPlayerToSeat() {
+        initManager();
+        this.manager.addPlayerToSeat("test", 1);
+        assertNotNull(this.getHumanFromSeat(1));
     }
 
     private void initRound() {

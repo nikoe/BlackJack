@@ -146,4 +146,11 @@ public class HandTest {
         Hand h = new Hand();
         assertEquals(0, h.getFinalHandValue());
     }
+    
+    @Test
+    public void testSetDoubled() {
+        Hand h = new Hand();
+        h.setDoubled(true);
+        assertEquals(true, h.isDoubled());
+    }
 }
