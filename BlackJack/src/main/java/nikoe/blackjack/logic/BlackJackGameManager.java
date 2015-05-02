@@ -1,19 +1,12 @@
 package nikoe.blackjack.logic;
 
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
-import java.util.Observable;
-import java.util.logging.Level;
-import java.util.logging.Logger;
-import javax.swing.Timer;
 import nikoe.blackjack.logic.cards.BlackJackDeck;
 import nikoe.blackjack.logic.cards.Hand;
 import nikoe.blackjack.logic.players.Dealer;
 import nikoe.blackjack.logic.players.Human;
-import nikoe.blackjack.logic.players.Player;
 import nikoe.blackjack.ui.GamePanel;
 import nikoe.blackjack.util.PropertyReader;
 
@@ -124,10 +117,10 @@ public class BlackJackGameManager {
         boolean b = false;
         for (Seat s : this.getSeats()) {
             if (s.hasPlayer()) {
-                Human h  = (Human) s.getPlayer();
-                if(h.getMoney() >= 10.0 || h.getBet() > 0) {
+                Human h = (Human) s.getPlayer();
+                if (h.getMoney() >= 10.0 || h.getBet() > 0) {
                     b = true;
-                    break;   
+                    break;
                 }
 
             }
@@ -173,15 +166,15 @@ public class BlackJackGameManager {
             this.ui.repaintAll();
         }
     }
-    
+
     public void placeBets() {
-        if(this.state == GameState.IDLE) {
+        if (this.state == GameState.IDLE) {
             clearHands();
             this.state = GameState.PLACEBETS;
             repaintAll();
         }
     }
-    
+
     /**
      * Method for starting new round. Round starts only if GameState is IDLE.
      * This deal starting cards for players
@@ -196,7 +189,7 @@ public class BlackJackGameManager {
             for (Seat seat : this.seats) {
                 if (seat.hasPlayer()) {
                     Human human = (Human) seat.getPlayer();
-                    if(human.getBet() > 0) {
+                    if (human.getBet() > 0) {
                         this.seatPlaying = seat.getSeatNumber();
                         break;
                     }
@@ -233,7 +226,7 @@ public class BlackJackGameManager {
         for (int i = 0; i < 2; i++) {
             for (Seat seat : this.seats) {
                 Human human = (Human) seat.getPlayer();
-                if (seat.hasPlayer() && human.getBet() > 0 ) {
+                if (seat.hasPlayer() && human.getBet() > 0) {
                     Hand h = human.getHands().get(0);
                     h.addCard(this.deck.dealCard());
                 }
@@ -269,47 +262,50 @@ public class BlackJackGameManager {
      * hold information about seat playing
      */
     public void hitCard() {
-        Seat s = this.getSeat(seatPlaying);
-        if (s.hasPlayer()) {
-            Hand h = s.getPlayer().getHands().get(0);
-            h.addCard(this.deck.dealCard());
-            if (h.getIsBusted()) {
-                this.activeHandStand();
+        if (this.state == GameState.ROUNDACTIVE) {
+            Seat s = this.getSeat(seatPlaying);
+            if (s.hasPlayer()) {
+                Hand h = s.getPlayer().getHands().get(0);
+                h.addCard(this.deck.dealCard());
+                if (h.getIsBusted()) {
+                    this.activeHandStand();
+                }
             }
+            repaintAll();
         }
-        repaintAll();
     }
 
     /**
      * Method for stand current hand
      */
     public void activeHandStand() {
-        Hand curHand = this.getSeat(seatPlaying).getPlayer().getHands().get(0);
-        curHand.setReady();
-        if (isPlayerLeftBehind()) {
-            for (int i = this.seatPlaying + 1; i <= this.seats.size(); i++) {
-                if (this.getSeat(i).hasPlayer()) {
-                    Human h = (Human) this.getSeat(i).getPlayer();
-                    if(h.getBet() > 0) {
-                        this.seatPlaying = i;
-                        break;
+        if (this.state == GameState.ROUNDACTIVE) {
+            Hand curHand = this.getSeat(seatPlaying).getPlayer().getHands().get(0);
+            curHand.setReady();
+            if (isPlayerLeftBehind()) {
+                for (int i = this.seatPlaying + 1; i <= this.seats.size(); i++) {
+                    if (this.getSeat(i).hasPlayer()) {
+                        Human h = (Human) this.getSeat(i).getPlayer();
+                        if (h.getBet() > 0) {
+                            this.seatPlaying = i;
+                            break;
+                        }
                     }
                 }
+                repaintAll();
+            } else {
+                this.seatPlaying = 0;
+                this.state = GameState.DEALTODEALER;
+                //repaintAll();
+                dealToDealer();
             }
-            repaintAll();
-        } else {
-            this.seatPlaying = 0;
-            this.state = GameState.DEALTODEALER;
-            repaintAll();
-            dealToDealer();
         }
     }
-    
-    
+
     public void activeHandDouble() {
-        if(this.activeHandCanDouble()) {
+        if (this.activeHandCanDouble()) {
             Seat s = this.getSeat(this.seatPlaying);
-            if(s.hasPlayer()) {
+            if (s.hasPlayer()) {
                 Human h = (Human) s.getPlayer();
                 double bet = h.getBet();
                 h.setMoney(h.getMoney() - bet);
@@ -322,17 +318,17 @@ public class BlackJackGameManager {
             }
         }
     }
-    
+
     public boolean activeHandCanDouble() {
         Seat s = this.getSeat(this.seatPlaying);
-        if(s.hasPlayer()) {
+        if (s.hasPlayer()) {
             Human h = (Human) s.getPlayer();
             return h.canDouble();
-        }else {
+        } else {
             return false;
         }
     }
-    
+
     private void dealToDealer() {
         if (!isAllBusted()) {
             Hand h = this.dealer.getHands().get(0);
@@ -349,7 +345,7 @@ public class BlackJackGameManager {
         for (Seat s : this.seats) {
             if (s.hasPlayer()) {
                 for (Hand h : s.getPlayer().getHands()) {
-                    if (h.getFinalHandValue() <= 21) {
+                    if (h.getFinalHandValue() <= 21 && h.getFinalHandValue() > 0) {
                         return false;
                     }
                 }
@@ -367,21 +363,21 @@ public class BlackJackGameManager {
                 Hand hand = human.getHands().get(0);
                 double bet = human.getBet();
                 double win = 0;
-                if(hand.isBlackJack() && !dealerHand.isBlackJack()) {
+                if (hand.isBlackJack() && !dealerHand.isBlackJack()) {
                     win = (bet * 1.5) + bet;
-                }else if(dealerHand.getFinalHandValue() > 21 && hand.getFinalHandValue() < 22) {
+                } else if (dealerHand.getFinalHandValue() > 21 && hand.getFinalHandValue() < 22) {
                     win = (bet * 1.0) + bet;
-                }else if((hand.getFinalHandValue() < 22) && hand.getFinalHandValue() > dealerHand.getFinalHandValue()) {
+                } else if ((hand.getFinalHandValue() < 22) && hand.getFinalHandValue() > dealerHand.getFinalHandValue()) {
                     win = (bet * 1.0) + bet;
-                }else if(hand.getFinalHandValue() > 21) {
+                } else if (hand.getFinalHandValue() > 21) {
                     win = 0;
-                }else if(hand.getFinalHandValue() == dealerHand.getFinalHandValue()) {
+                } else if (hand.getFinalHandValue() == dealerHand.getFinalHandValue()) {
                     win = bet;
                 }
-                
+
                 human.setMoney(human.getMoney() + win);
                 human.setBet(0);
-                
+
             }
         }
 
@@ -401,7 +397,7 @@ public class BlackJackGameManager {
         for (int i = this.seatPlaying + 1; i <= this.seats.size(); i++) {
             if (this.getSeat(i).hasPlayer()) {
                 Human h = (Human) this.getSeat(i).getPlayer();
-                if(h.getBet() > 0) {
+                if (h.getBet() > 0) {
                     b = true;
                     break;
                 }
@@ -418,7 +414,7 @@ public class BlackJackGameManager {
     public GameState getGameState() {
         return this.state;
     }
-    
+
     public int getSeatPlaying() {
         return this.seatPlaying;
     }
