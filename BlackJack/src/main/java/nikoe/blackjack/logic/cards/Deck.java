@@ -67,10 +67,18 @@ public abstract class Deck {
         this.shuffle();
     }
     
+    /**
+     * Adds card to deck
+     * @param card
+     */
     public void addCard(Card card) {
         this.availableCards.add(card);
     }
     
+    /**
+     * Returns available cards
+     * @return
+     */
     public List<Card> getAvailableCards() {
         return Collections.unmodifiableList(this.availableCards);
     }

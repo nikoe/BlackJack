@@ -54,6 +54,10 @@ public class Human extends Player {
         return this.bet;
     }
     
+    /**
+     * Returns if player has more or equal money than current bet
+     * @return
+     */
     public boolean canDouble() {
         return this.money >= this.bet;
     } 

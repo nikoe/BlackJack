@@ -34,6 +34,10 @@ public class BlackJackDeck extends Deck {
         this.shuffle();
     }
     
+    /**
+     * Returns how many 52 card decks inited
+     * @return
+     */
     public int getNumberOfDecks() {
         return this.numberOfDecks;
     }

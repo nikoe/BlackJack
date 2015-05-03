@@ -19,7 +19,7 @@ public class HandValueHolder {
     
     /**
      * Returns possible values for a hand
-     * @return List<Integer>
+     * @return List
      */
     public List<Integer> getPossibleHandValues() {
         return Collections.unmodifiableList(possibleHandValues);

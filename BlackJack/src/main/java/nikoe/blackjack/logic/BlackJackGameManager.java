@@ -167,6 +167,9 @@ public class BlackJackGameManager {
         }
     }
 
+    /**
+     * Start PlaceBets gameState
+     */
     public void placeBets() {
         if (this.state == GameState.IDLE) {
             clearHands();
@@ -302,6 +305,9 @@ public class BlackJackGameManager {
         }
     }
 
+    /**
+     * Double activehand
+     */
     public void activeHandDouble() {
         if (this.activeHandCanDouble()) {
             Seat s = this.getSeat(this.seatPlaying);
@@ -319,6 +325,10 @@ public class BlackJackGameManager {
         }
     }
 
+    /**
+     * Checks if ActiveHand Can Double
+     * @return boolean
+     */
     public boolean activeHandCanDouble() {
         Seat s = this.getSeat(this.seatPlaying);
         if (s.hasPlayer()) {
@@ -417,6 +427,10 @@ public class BlackJackGameManager {
         return this.state;
     }
 
+    /**
+     * Returns seatnumber who is playing
+     * @return
+     */
     public int getSeatPlaying() {
         return this.seatPlaying;
     }

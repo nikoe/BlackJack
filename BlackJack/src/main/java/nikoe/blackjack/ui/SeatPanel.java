@@ -134,7 +134,10 @@ public class SeatPanel extends JComponent {
             this.betHundred.setVisible(false);
         }
     }
-
+    
+    /**
+     * Resets all texts in SeatPanel
+     */
     public void resetTexts() {
         if (seat.hasPlayer()) {
             Human h = (Human) seat.getPlayer();

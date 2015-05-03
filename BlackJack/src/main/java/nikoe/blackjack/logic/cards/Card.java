@@ -23,6 +23,7 @@ public class Card implements Comparable{
      *
      * @param rank
      * @param suit
+     * @param img
      */
     public Card(Rank rank, Suit suit, Image img) {
         this.rank = rank;

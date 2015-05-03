@@ -131,7 +131,7 @@ public class GamePanel extends JPanel {
     }
     
     /**
-     *
+     * Repaints All components
      */
     public void repaintAll() {
         repaint();
