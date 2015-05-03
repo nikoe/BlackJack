@@ -89,4 +89,31 @@ Tunnit: 3h
 
 Tunnit: 1h
 
-Yhteensä: 42h
+#27.4.2015#
+
+* Panostamisen aloittaminen
+
+Tunnit: 4h
+
+#28.4.2015#
+
+* Panostus saatu valmiiksi
+
+Tunnit: 2h
+
+#2.5.2015#
+
+* Aktiivisen pelaajan penkkiin tulee vihreä reuna
+* Testejä kirjoitettu logiikkaan
+
+Tunnit: 5h
+
+#3.5.2015#
+
+* Panostusta muutettu niin, että voi panostaa joko 10, 50 tai 100 kerralla
+* Käyttöohjetta muutettu
+* Testejä hieman parannettu
+
+Tunnit: 3h
+
+Yhteensä: 56h
