@@ -111,7 +111,7 @@ public class GamePanel extends JPanel {
 
     private void addSeatPanel(Seat seat, int x, int y) {
         SeatPanel panel = new SeatPanel(seat, this.manager);
-        panel.setBounds(x, y, (int) panel.getPreferredSize().getWidth() - 25, (int) panel.getPreferredSize().getHeight() );
+        panel.setBounds(x, y, (int) panel.getPreferredSize().getWidth() - 25, (int) panel.getPreferredSize().getHeight() + 10 );
         add(panel);
         this.seatPanels.add(panel);
     }

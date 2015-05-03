@@ -38,8 +38,9 @@ public class SeatPanel extends JComponent {
     private JLabel playerMoney;
     private JLabel playerBet;
     private BlackJackGameManager manager;
-    private JButton addBet;
-    private JButton reduceBet;
+    private JButton betTen;
+    private JButton betFifty;
+    private JButton betHundred;
 
     public SeatPanel(Seat seat, BlackJackGameManager manager) {
         this.seat = seat;
@@ -56,9 +57,9 @@ public class SeatPanel extends JComponent {
         playerName.setForeground(Color.WHITE);
         add(playerName);
 
-        playerMoney = new JLabel("", SwingConstants.LEFT);
+        playerMoney = new JLabel("", SwingConstants.CENTER);
         playerMoney.setFont(new Font("Verdana", Font.BOLD, 14));
-        playerMoney.setBounds(73, 80, 100, 50);
+        playerMoney.setBounds(50, 80, 100, 50);
         playerMoney.setForeground(Color.WHITE);
         add(playerMoney);
 
@@ -71,25 +72,38 @@ public class SeatPanel extends JComponent {
     }
 
     private void addButtons() {
-        this.addBet = new JButton("+");
-        this.addBet.setBounds(73, 177, 20, 20);
-        this.addBet.setForeground(Color.BLACK);
-        this.addBet.setHorizontalAlignment(SwingConstants.CENTER);
-        this.addBet.setMargin(new Insets(0, 0, 0, 0));
-        this.addBet.setFont(new Font("Verdana", Font.BOLD, 10));
-        this.addBet.setVisible(false);
-        this.addBet.addActionListener(new addBetButtonListener());
-        add(addBet);
+        this.betTen = new JButton("10");
+        this.betTen.setBounds(55, 180, 30, 20);
+        this.betTen.setForeground(Color.BLACK);
+        this.betTen.setHorizontalAlignment(SwingConstants.CENTER);
+        this.betTen.setMargin(new Insets(0, 0, 0, 0));
+        this.betTen.setFont(new Font("Verdana", Font.BOLD, 10));
+        this.betTen.setVisible(false);
+        this.betTen.addMouseListener(betListener);
+        add(betTen);
 
-        this.reduceBet = new JButton("-");
-        this.reduceBet.setBounds(103, 177, 20, 20);
-        this.reduceBet.setForeground(Color.BLACK);
-        this.reduceBet.setHorizontalAlignment(SwingConstants.CENTER);
-        this.reduceBet.setMargin(new Insets(0, 0, 0, 0));
-        this.reduceBet.setFont(new Font("Verdana", Font.BOLD, 10));
-        this.reduceBet.setVisible(false);
-        this.reduceBet.addActionListener(new reduceBetButtonListener());
-        add(reduceBet);
+        this.betFifty = new JButton("50");
+        this.betFifty.setBounds(90, 180, 30, 20);
+        this.betFifty.setForeground(Color.BLACK);
+        this.betFifty.setHorizontalAlignment(SwingConstants.CENTER);
+        this.betFifty.setMargin(new Insets(0, 0, 0, 0));
+        this.betFifty.setFont(new Font("Verdana", Font.BOLD, 10));
+        this.betFifty.setVisible(false);
+        this.betFifty.addMouseListener(betListener);
+        add(betFifty);
+        
+        this.betHundred = new JButton("100");
+        this.betHundred.setBounds(125, 180, 35, 20);
+        this.betHundred.setForeground(Color.BLACK);
+        this.betHundred.setHorizontalAlignment(SwingConstants.CENTER);
+        this.betHundred.setMargin(new Insets(0, 0, 0, 0));
+        this.betHundred.setFont(new Font("Verdana", Font.BOLD, 10));
+        this.betHundred.setVisible(false);
+        this.betHundred.addMouseListener(betListener);
+        add(betHundred);
+
+        
+
     }
 
     @Override
@@ -111,11 +125,13 @@ public class SeatPanel extends JComponent {
 
     private void checkGameState() {
         if (manager.getGameState() == GameState.PLACEBETS && seat.hasPlayer()) {
-            this.addBet.setVisible(true);
-            this.reduceBet.setVisible(true);
+            this.betTen.setVisible(true);
+            this.betFifty.setVisible(true);
+            this.betHundred.setVisible(true);
         } else {
-            this.addBet.setVisible(false);
-            this.reduceBet.setVisible(false);
+            this.betTen.setVisible(false);
+            this.betFifty.setVisible(false);
+            this.betHundred.setVisible(false);
         }
     }
 
@@ -160,41 +176,34 @@ public class SeatPanel extends JComponent {
         }
     };
 
-    class addBetButtonListener implements ActionListener {
-
+    private MouseListener betListener = new MouseAdapter() {
         @Override
-        public void actionPerformed(ActionEvent e) {
+        public void mouseClicked(MouseEvent e) {
             if (manager.getGameState() == GameState.PLACEBETS) {
                 if (seat.hasPlayer()) {
-                    Human h = (Human) seat.getPlayer();
-                    if (h.getMoney() >= 10) {
-                        h.setMoney(h.getMoney() - 10.0);
-                        h.setBet(h.getBet() + 10.0);
-                        repaint();
+                    if (e.getButton() == 1) {
+                        JButton b = (JButton) e.getSource();
+                        Double bet = Double.parseDouble(b.getText());
+                        Human h = (Human) seat.getPlayer();
+                        if (h.getMoney() >= bet) {
+                            h.setMoney(h.getMoney() - bet);
+                            h.setBet(h.getBet() + bet);
+                            repaint();
+                        }
+                    } else if (e.getButton() == 3) {
+                        JButton b = (JButton) e.getSource();
+                        Double bet = Double.parseDouble(b.getText());
+                        Human h = (Human) seat.getPlayer();
+                        if (h.getBet() >= bet) {
+                            h.setMoney(h.getMoney() + bet);
+                            h.setBet(h.getBet() - bet);
+                            repaint();
+                        }
                     }
                 }
             }
         }
-
-    }
-
-    class reduceBetButtonListener implements ActionListener {
-
-        @Override
-        public void actionPerformed(ActionEvent e) {
-            if (manager.getGameState() == GameState.PLACEBETS) {
-                if (seat.hasPlayer()) {
-                    Human h = (Human) seat.getPlayer();
-                    if (h.getBet() >= 10) {
-                        h.setMoney(h.getMoney() + 10.0);
-                        h.setBet(h.getBet() - 10.0);
-                        repaint();
-                    }
-                }
-            }
-        }
-
-    }
+    };
 
     @Override
     public Dimension getPreferredSize() {
