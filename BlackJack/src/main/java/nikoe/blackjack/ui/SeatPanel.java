@@ -189,6 +189,8 @@ public class SeatPanel extends JComponent {
                             h.setMoney(h.getMoney() - bet);
                             h.setBet(h.getBet() + bet);
                             repaint();
+                        }else {
+                            JOptionPane.showMessageDialog(null, "Not enough money!");
                         }
                     } else if (e.getButton() == 3) {
                         JButton b = (JButton) e.getSource();

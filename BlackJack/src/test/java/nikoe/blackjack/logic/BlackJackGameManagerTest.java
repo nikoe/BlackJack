@@ -339,6 +339,23 @@ public class BlackJackGameManagerTest {
     }
     
     @Test
+    public void testCannotDoubleIfMoreThanTwoCards() {
+        initManager();
+        initPlayer(1);
+        Human h = this.getHumanFromSeat(1);
+        h.setBet(10.0);
+        h.setMoney(h.getMoney() - h.getBet());
+        this.manager.placeBets();
+        this.manager.startNewRound();
+        Hand hand = h.getHands().get(0);
+        hand.clear();
+        hand.addCard(new Card(Rank.FIVE, Suit.DIAMONDS, null));
+        hand.addCard(new Card(Rank.FIVE, Suit.DIAMONDS, null));
+        hand.addCard(new Card(Rank.FIVE, Suit.DIAMONDS, null));
+        assertEquals(false, this.manager.activeHandCanDouble());
+    }
+    
+    @Test
     public void testAddPlayerToSeat() {
         initManager();
         this.manager.addPlayerToSeat("test", 1);

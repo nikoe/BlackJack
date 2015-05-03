@@ -323,7 +323,9 @@ public class BlackJackGameManager {
         Seat s = this.getSeat(this.seatPlaying);
         if (s.hasPlayer()) {
             Human h = (Human) s.getPlayer();
-            return h.canDouble();
+            Hand hand = h.getHands().get(0);
+            
+            return h.canDouble() && hand.getCards().size() == 2;
         } else {
             return false;
         }
