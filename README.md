@@ -1,3 +1,3 @@
 # BlackJack
 
-TEST
+Graphical blackjack game made by java
